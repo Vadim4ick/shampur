@@ -86,10 +86,10 @@ const Header = () => {
         </Container>
       </div>
 
-      <div className="flex items-center border-y border-y-black border-opacity-15 py-[9px]">
+      <div className="flex items-center border-y border-y-black border-opacity-15">
         <Container>
           <div className="flex w-full justify-between">
-            <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll">
+            <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll py-[9px]">
               {navbar.map((item) => (
                 <button
                   key={item.id}
@@ -97,7 +97,7 @@ const Header = () => {
                   className={cn(
                     "cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-[#363636]",
                     {
-                      "relative before:absolute before:left-[50%] before:top-[29px] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#D13A3A]":
+                      "relative before:absolute before:bottom-[-9px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#D13A3A]":
                         item.id === activeId,
                     },
                   )}
