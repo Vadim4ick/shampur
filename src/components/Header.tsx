@@ -88,8 +88,8 @@ const Header = () => {
 
       <div className="flex items-center border-y border-y-black border-opacity-15">
         <Container>
-          <div className="flex w-full justify-between">
-            <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll py-[9px]">
+          <div className="flex w-full justify-between py-[9px]">
+            <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll">
               {navbar.map((item) => (
                 <button
                   key={item.id}
