@@ -14,11 +14,15 @@ import { Container } from "@/shared/ui/container";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { useHeaderStore } from "@/store/header";
+import { cn } from "@/shared/lib/utils";
 
 const Banner = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+
+  const { fixed } = useHeaderStore();
 
   useEffect(() => {
     if (!api) {
@@ -34,11 +38,15 @@ const Banner = () => {
   }, [api]);
 
   return (
-    <section className="max-mobile:pt-[30px] pb-[75px] pt-[58px]">
+    <section
+      className={cn("mt-[58px] pb-[75px]", {
+        "mt-[calc(58px_+_114px)]": fixed,
+      })}
+    >
       <Container>
         <div className="flex flex-col gap-4">
-          <div className="max-mobile:gap-[30px] flex flex-col justify-between gap-[58px]">
-            <h2 className="max-mobileSmall:max-w-[305px] mx-auto text-center text-[36px] font-bold leading-[49px] text-[#363636]">
+          <div className="flex flex-col justify-between gap-[58px] max-mobile:gap-[30px]">
+            <h2 className="mx-auto text-center text-[36px] font-bold leading-[49px] text-[#363636] max-mobileSmall:max-w-[305px]">
               Блюда на гриле с доставкой по Краснодару
             </h2>
 
@@ -64,9 +72,9 @@ const Banner = () => {
                         className="rounded-[12px] object-cover"
                       />
 
-                      <div className="max-mobile:pt-[30px] max-mobile:px-[22px] max-mobile:items-center max-mobile:pb-[26px] absolute flex h-full w-full flex-col justify-between p-[60px]">
+                      <div className="absolute flex h-full w-full flex-col justify-between p-[60px] max-mobile:items-center max-mobile:px-[22px] max-mobile:pb-[26px] max-mobile:pt-[30px]">
                         <div className="flex w-full flex-col items-start gap-[14px]">
-                          <h2 className="max-mobile:text-[28px] max-mobile:leading-[38px] text-[47px] font-[800] uppercase leading-[64px] text-white">
+                          <h2 className="text-[47px] font-[800] uppercase leading-[64px] text-white max-mobile:text-[28px] max-mobile:leading-[38px]">
                             бесплатная доставка
                           </h2>
 

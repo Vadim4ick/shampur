@@ -6,16 +6,20 @@ const CatalogItems = () => {
   return (
     <section>
       <Container>
-        <div className="max-mobile:gap-[30px] flex flex-col justify-between gap-[58px]">
+        <div className="flex flex-col justify-between gap-[58px] max-mobile:gap-[30px]">
           {catalogItems.map((el) => {
             return (
-              <div key={el.id} className="flex flex-col gap-[36px]">
+              <div
+                // data-catalogItems={el.title}
+                key={el.id}
+                className="flex flex-col gap-[36px]"
+              >
                 <div className="flex flex-col gap-[10px]">
                   <h2 className="text-[28px] font-bold leading-[38px] text-[#363636]">
                     {el.title}
                   </h2>
 
-                  <div className="max-mobile:hidden flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 max-mobile:hidden">
                     {el.categories.map((category) => {
                       return (
                         <button
