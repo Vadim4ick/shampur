@@ -31,9 +31,11 @@ const CatalogItem = ({ item }: { item: ICatalogItem }) => {
             {item.title}
           </p>
 
-          <div className="line-clamp-2 text-[14px] font-[500] leading-[19px] text-[#696969]">
-            {item.description.join(", ")}
-          </div>
+          {item.description && (
+            <div className="line-clamp-2 text-[14px] font-[500] leading-[19px] text-[#696969]">
+              {item.description.join(", ")}
+            </div>
+          )}
 
           <span className="text-[14px] font-[500] leading-[19px] text-[#696969]">
             {item.weight}
