@@ -9,43 +9,91 @@ import { cn } from "@/shared/lib/utils";
 import { Container } from "@/shared/ui/container";
 import { useHeaderStore } from "@/store/header";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const Header = () => {
-  const [activeId, setActiveId] = useState(1);
-
+  const [activeId, setActiveId] = useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
-
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const { fixed, setFixed } = useHeaderStore();
 
-  const onClick = (id: number) => {
-    setActiveId(id);
-  };
+  const handleScroll = useCallback(() => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-  // useEffect(() => {
-  //   console.log(document.querySelectorAll("[data-catalogItems]"));
-  // }, []);
+    if (ref.current && scrollTop > ref.current.offsetHeight) {
+      setFixed(true);
+    } else {
+      setFixed(false);
+    }
+  }, [setFixed]);
+
+  const handleResize = useCallback(() => {
+    if (observerRef.current) {
+      const sections = document.querySelectorAll("[data-catalog]");
+      sections.forEach((section) => {
+        if (observerRef.current) {
+          observerRef.current.observe(section);
+        }
+      });
+    }
+  }, []);
+
+  const onClickNavbar = useCallback((id: number) => {
+    const section = document.querySelector(`[data-catalog="${id}"]`);
+    if (!section) return;
+
+    const offsetTop = section.getBoundingClientRect().top + window.scrollY;
+    const scrollToPosition = offsetTop - 140; // Adjust offset
+
+    window.scrollTo({
+      top: scrollToPosition,
+      behavior: "smooth",
+    });
+  }, []);
 
   useEffect(() => {
-    // Функция для проверки позиции скролла
-    const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(Number(entry.target.getAttribute("data-catalog")));
+          }
+        });
+      },
+      { threshold: 0.8 },
+    );
 
-      // Если скролл больше определенной высоты (например, 100px), добавляем класс
-      if (ref.current && scrollTop > ref.current.offsetHeight) {
-        setFixed(true);
-      } else {
-        setFixed(false);
-      }
+    const sections = document.querySelectorAll("[data-catalog]");
+    sections.forEach((section) => observerRef.current!.observe(section));
+
+    return () => {
+      sections.forEach((section) => observerRef.current!.unobserve(section));
     };
+  }, []);
 
-    // Добавляем слушатель на скролл
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
 
-    // Убираем слушатель при размонтировании компонента
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
+  }, [handleResize, handleScroll]);
+
+  useEffect(() => {
+    // Установите активный id при монтировании компонента
+    const sections = document.querySelectorAll("[data-catalog]");
+    const last = sections[sections.length - 1];
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    const sectionTop = last.getBoundingClientRect().top + scrollTop;
+    const sectionBottom = sectionTop + last.clientHeight;
+
+    // // Проверяем, находимся ли мы в пределах последней секции
+    if (scrollTop >= sectionTop && scrollTop > sectionBottom) {
+      setActiveId(Number(last.getAttribute("data-catalog")));
+    }
   }, []);
 
   return (
@@ -132,7 +180,7 @@ const Header = () => {
                 {navbar.map((item) => (
                   <button
                     key={item.id}
-                    onClick={() => onClick(item.id)}
+                    onClick={() => onClickNavbar(item.id)}
                     className={cn(
                       "cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-[#363636]",
                       {

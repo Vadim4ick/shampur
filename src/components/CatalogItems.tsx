@@ -10,7 +10,7 @@ const CatalogItems = () => {
           {catalogItems.map((el) => {
             return (
               <div
-                // data-catalogItems={el.title}
+                data-catalog={el.id}
                 key={el.id}
                 className="flex flex-col gap-[36px]"
               >
