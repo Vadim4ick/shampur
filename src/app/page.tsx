@@ -1,5 +1,5 @@
 import { Banner } from "@/components/Banner";
-import { CatalogItems } from "@/components/CatalogItems";
+import { CatalogPage } from "@/components/CatalogPage";
 import { DeliveryIcon } from "@/shared/icons/DeliveryIcon";
 import { PaymentIcon } from "@/shared/icons/PaymentIcon";
 import { TimeIcon } from "@/shared/icons/TimeIcon";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main>
       <Banner />
-      <CatalogItems />
+      <CatalogPage />
 
       {/* Доставка и оплата */}
       <section className="pt-[208px]">
