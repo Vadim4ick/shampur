@@ -56,12 +56,11 @@ const config: Config = {
 
       screens: {
         mobileSmall: "450px",
+        mobile550: "550px",
         mobile: "768px",
         tablet: "991px",
         desktop: "1150px",
         desktop1250: "1250px",
-        desktop1350: "1350px",
-        desktop1500: "1500px",
       },
     },
   },

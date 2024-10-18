@@ -13,18 +13,18 @@ export default function Home() {
       <CatalogPage />
 
       {/* Доставка и оплата */}
-      <section className="pt-[208px]">
+      <section className="pt-[208px] max-tablet:pt-[108px] max-mobile:pt-[78px]">
         <Container>
-          <div className="flex flex-col gap-6">
-            <h2 className="text-[28px] font-[700] leading-[38px] text-[#363636]">
+          <div className="flex flex-col gap-6 max-tablet:items-center">
+            <h2 className="text-[28px] font-[700] leading-[38px] text-[#363636] max-tablet:self-start">
               Доставка и оплата
             </h2>
 
-            <div className="flex justify-between rounded-[12px] bg-[#EDEDED] px-[50px] py-[36px]">
+            <div className="flex w-full justify-between rounded-[12px] bg-[#EDEDED] py-[36px] pl-[32px] pr-[50px] max-desktop1250:px-[10px] max-tablet:max-w-[500px] max-tablet:flex-col max-tablet:gap-[42px] max-tablet:py-[42px]">
               <article className="flex flex-col gap-[33px]">
                 <DeliveryIcon />
 
-                <div className="flex min-w-[339px] flex-col gap-[8px] text-center">
+                <div className="flex flex-col gap-[8px] text-center tablet:min-w-[339px]">
                   <p className="text-[16px] font-[700] leading-[22px] text-[#363636]">
                     Доставка по городу - 300 руб.
                   </p>
@@ -35,12 +35,12 @@ export default function Home() {
                 </div>
               </article>
 
-              <div className="relative before:absolute before:h-full before:w-[1px] before:bg-[#D7D7D7]"></div>
+              <div className="relative flex items-center justify-center before:absolute before:h-full before:w-[1px] before:bg-[#D7D7D7] max-tablet:before:h-[1px] max-tablet:before:w-[276px]" />
 
               <article className="flex flex-col gap-[38px]">
                 <TimeIcon />
 
-                <div className="min-w-[301px] text-center">
+                <div className="text-center tablet:min-w-[301px]">
                   <p className="text-[16px] font-[700] leading-[24px] text-[#363636]">
                     Доставялем
                   </p>
@@ -50,12 +50,12 @@ export default function Home() {
                 </div>
               </article>
 
-              <div className="relative before:absolute before:h-full before:w-[1px] before:bg-[#D7D7D7]"></div>
+              <div className="relative flex items-center justify-center before:absolute before:h-full before:w-[1px] before:bg-[#D7D7D7] max-tablet:before:h-[1px] max-tablet:before:w-[276px]" />
 
               <article className="flex flex-col gap-[38px]">
                 <PaymentIcon />
 
-                <div className="min-w-[301px] text-center">
+                <div className="text-center tablet:min-w-[301px]">
                   <p className="text-[16px] font-[700] leading-[24px] text-[#363636]">
                     Оплата
                   </p>
@@ -70,16 +70,16 @@ export default function Home() {
       </section>
       {/* /Доставка и оплата */}
 
-      <section className="py-[208px]">
+      <section className="py-[208px] max-tablet:py-[108px] max-mobile:py-[78px]">
         <Container>
-          <div className="flex flex-col gap-[25px]">
-            <h2 className="text-[18px] font-bold leading-[25px] text-[#363636]">
+          <div className="flex flex-col items-center gap-[25px]">
+            <h2 className="self-start text-[28px] font-bold leading-[38px] text-[#363636]">
               О нас
             </h2>
 
-            <div className="flex justify-between gap-2">
-              <div className="flex flex-col justify-between gap-4">
-                <div className="flex max-w-[623px] flex-col gap-[30px]">
+            <div className="flex w-full justify-between gap-[36px] max-tablet:flex-col-reverse max-tablet:items-center">
+              <div className="flex flex-col justify-between gap-4 max-tablet:gap-[68px]">
+                <div className="flex flex-col gap-[20px] tablet:max-w-[623px]">
                   <p className="text-[18px] font-semibold leading-[25px] text-[#363636]">
                     Шашлык в Краснодаре – просто, быстро и вкусно Когда идет
                     речь о вкусной еде, то многие люди думают о шашлыке.
@@ -99,14 +99,15 @@ export default function Home() {
                   </p>
                 </div>
 
-                <Button className="h-[56px] max-w-[224px]" variant={"revert"}>
+                <Button
+                  className="h-[56px] max-w-[224px] max-mobile:max-w-full"
+                  variant={"revert"}
+                >
                   Перейти к меню
                 </Button>
               </div>
 
-              {/* Banner */}
-              <div className="h-[457px] w-[489px] rounded-[12px] bg-[#EDEDED]"></div>
-              {/* /Banner */}
+              <div className="h-[457px] w-full max-w-[489px] shrink-0 rounded-[12px] bg-[#EDEDED] max-mobile:h-[335px]"></div>
             </div>
           </div>
         </Container>

@@ -8,7 +8,7 @@ interface Props {
 
 export const Container = ({ className, children }: Props) => {
   return (
-    <div className={cn("mx-auto w-full max-w-[1228px] px-3", className)}>
+    <div className={cn("mx-auto w-full max-w-[1228px] px-4", className)}>
       {children}
     </div>
   );

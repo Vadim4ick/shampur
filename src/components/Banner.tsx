@@ -39,9 +39,13 @@ const Banner = () => {
 
   return (
     <section
-      className={cn("mt-[58px] pb-[75px]", {
-        "mt-[calc(58px_+_114px)]": fixed,
-      })}
+      className={cn(
+        "mt-[58px] pb-[75px] max-mobile:mt-[30px] max-mobile:pb-[72px]",
+        {
+          "mt-[calc(58px_+_var(--header-height))] max-mobile:mt-[calc(30px_+_var(--header-height))]":
+            fixed,
+        },
+      )}
     >
       <Container>
         <div className="flex flex-col gap-4">
@@ -95,8 +99,8 @@ const Banner = () => {
                 ))}
               </CarouselContent>
 
-              <CarouselPrevious className="left-[-22px] size-[44px] bg-white text-[#363636] shadow" />
-              <CarouselNext className="right-[-24px] size-[44px] bg-white text-[#363636] shadow" />
+              <CarouselPrevious className="left-[-22px] size-[44px] bg-white text-[#363636] shadow max-desktop1250:hidden" />
+              <CarouselNext className="right-[-24px] size-[44px] bg-white text-[#363636] shadow max-desktop1250:hidden" />
             </Carousel>
           </div>
 

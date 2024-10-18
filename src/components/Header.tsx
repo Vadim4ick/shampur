@@ -85,6 +85,8 @@ const Header = () => {
     // Установите активный id при монтировании компонента
     const sections = document.querySelectorAll("[data-catalog]");
     const last = sections[sections.length - 1];
+
+    if (!last) return;
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
     const sectionTop = last.getBoundingClientRect().top + scrollTop;
@@ -145,11 +147,11 @@ const Header = () => {
           <Container>
             <div className="flex justify-between">
               {/* LOGO */}
-              <div className="h-[46px] w-[205px] bg-[#EAEAEA] max-mobile:w-[181px]"></div>
+              <div className="h-[46px] w-full max-w-[205px] bg-[#EAEAEA] max-mobile:max-w-[181px]"></div>
               {/* /LOGO */}
 
-              <button className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]">
-                <div className="flex items-center gap-[8px] pr-[21px]">
+              <button className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors max-mobile:pl-[9px] [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]">
+                <div className="flex items-center gap-[8px] pr-[21px] max-mobile:pr-[7px]">
                   <Grill />
 
                   <span className="text-[14px] font-[700] leading-[19px] text-white max-mobile:hidden">
@@ -158,11 +160,11 @@ const Header = () => {
                 </div>
 
                 {/* Counter */}
-                <div className="relative h-[24px] pr-[10px]">
+                <div className="relative h-[24px] pr-[10px] max-mobile:pr-[12px]">
                   <div className="before:absolute before:block before:h-[24px] before:w-[1px] before:bg-[#FF8383]"></div>
                 </div>
 
-                <div className="mr-[10px] flex size-[22px] items-center justify-center rounded-[100px] bg-[#FF4747]">
+                <div className="mr-[10px] flex size-[22px] items-center justify-center rounded-[100px] bg-[#FF4747] max-mobile:mr-[12px]">
                   <span className="max-w-[6px] text-[12px] font-[700] leading-[12px] text-white">
                     1
                   </span>
@@ -176,7 +178,7 @@ const Header = () => {
         <div className="flex items-center border-y border-y-black border-opacity-15">
           <Container>
             <div className="flex w-full justify-between">
-              <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll py-[9px]">
+              <div className="custom-scrollbar flex gap-[30px] overflow-y-hidden overflow-x-scroll py-[9px]">
                 {navbar.map((item) => (
                   <button
                     key={item.id}

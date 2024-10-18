@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const CatalogItem = ({ item }: { item: ICatalogItem }) => {
   return (
-    <article className="flex h-[360px] max-w-[286px] flex-col gap-[10px]">
+    <article className="flex h-[360px] flex-col gap-[10px] max-mobile:h-[332px]">
       <div className="relative min-h-[182px]">
         <Image
           src={item.img}
@@ -56,7 +56,10 @@ const CatalogItem = ({ item }: { item: ICatalogItem }) => {
             )}
           </div>
 
-          <Button className="h-[44px] max-w-[140px]" variant={"revert"}>
+          <Button
+            className="h-[44px] max-w-[140px] max-mobile:max-w-[170px]"
+            variant={"revert"}
+          >
             Добавить
           </Button>
 
