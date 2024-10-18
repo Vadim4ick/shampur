@@ -6,10 +6,6 @@ const config: Config = {
   content: ["./src/**/*.{ts,tsx,mdx}"],
   theme: {
     extend: {
-      fontFamily: {
-        manrope: ["Manrope", "sans-serif"],
-      },
-
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

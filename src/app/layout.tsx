@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
+import { Manrope } from "next/font/google";
 
 import "@/shared/styles/globals.css";
+import { Footer } from "@/components/Footer";
+
+const manrope = Manrope({
+  subsets: ["cyrillic"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  adjustFontFallback: false,
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-manrope`}>
+      <body className={`${manrope.className}`}>
         <Header />
 
         {children}
+
+        <Footer />
       </body>
     </html>
   );

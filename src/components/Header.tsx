@@ -58,14 +58,14 @@ const Header = () => {
         <Container>
           <div className="flex justify-between">
             {/* LOGO */}
-            <div className="max-mobile:w-[181px] h-[46px] w-[205px] bg-[#EAEAEA]"></div>
+            <div className="h-[46px] w-[205px] bg-[#EAEAEA] max-mobile:w-[181px]"></div>
             {/* /LOGO */}
 
-            <button className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px]">
+            <button className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]">
               <div className="flex items-center gap-[8px] pr-[21px]">
                 <Grill />
 
-                <span className="max-mobile:hidden text-[14px] font-[700] leading-[19px] text-white">
+                <span className="text-[14px] font-[700] leading-[19px] text-white max-mobile:hidden">
                   Корзина
                 </span>
               </div>
@@ -88,8 +88,8 @@ const Header = () => {
 
       <div className="flex items-center border-y border-y-black border-opacity-15">
         <Container>
-          <div className="flex w-full justify-between py-[9px]">
-            <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll">
+          <div className="flex w-full justify-between">
+            <div className="flex gap-[30px] overflow-y-hidden overflow-x-scroll py-[9px]">
               {navbar.map((item) => (
                 <button
                   key={item.id}
@@ -109,7 +109,7 @@ const Header = () => {
 
             <Link
               href="#"
-              className="max-mobile:hidden cursor-pointer text-[16px] font-[700] leading-[22px] text-[#363636]"
+              className="cursor-pointer py-[9px] text-[16px] font-[700] leading-[22px] text-[#363636] max-mobile:hidden"
             >
               Доставка и оплата
             </Link>
