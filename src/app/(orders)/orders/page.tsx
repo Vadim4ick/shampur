@@ -10,7 +10,7 @@ import { Container } from "@/shared/ui/container";
 const OrdersPage = () => {
   return (
     <main className="flex-grow bg-[#f5f5f5] pb-[208px] max-tablet:pb-[108px] max-mobile:pb-[57px]">
-      <section className="mt-[58px] max-mobile:mt-[25px]">
+      <section className="mt-[calc(58px_+_var(--header-orders-height))] max-mobile:mt-[calc(25px_+_var(--header-orders-height))]">
         <Container className="px-[4px]">
           <div className="flex flex-col gap-[58px] max-mobile:gap-[26px]">
             <h2 className="text-[36px] font-[700] leading-[49px] text-[#363636] max-tablet:pl-[12px] max-mobile:text-[32px] max-mobile:leading-[43px]">

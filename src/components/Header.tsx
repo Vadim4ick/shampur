@@ -28,6 +28,8 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   }, [setFixed]);
 
   const handleResize = useCallback(() => {
+    console.log(123123);
+
     if (observerRef.current) {
       const sections = document.querySelectorAll("[data-catalog]");
       sections.forEach((section) => {
@@ -52,38 +54,38 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   }, []);
 
   useEffect(() => {
-    if (bottomLinks) {
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveId(Number(entry.target.getAttribute("data-catalog")));
-            }
-          });
-        },
-        { threshold: 0.8 },
-      );
+    if (!bottomLinks) return;
 
-      const sections = document.querySelectorAll("[data-catalog]");
-      sections.forEach((section) => observerRef.current!.observe(section));
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(Number(entry.target.getAttribute("data-catalog")));
+          }
+        });
+      },
+      { threshold: 0.8 },
+    );
 
-      return () => {
-        sections.forEach((section) => observerRef.current!.unobserve(section));
-      };
-    }
-  }, [bottomLinks]);
+    const sections = document.querySelectorAll("[data-catalog]");
+    sections.forEach((section) => observerRef.current!.observe(section));
+
+    return () => {
+      sections.forEach((section) => observerRef.current!.unobserve(section));
+    };
+  }, []);
 
   useEffect(() => {
-    if (bottomLinks) {
-      window.addEventListener("scroll", handleScroll);
-      window.addEventListener("resize", handleResize);
+    if (!bottomLinks) return;
 
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-        window.removeEventListener("resize", handleResize);
-      };
-    }
-  }, [bottomLinks, handleResize, handleScroll]);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize, handleScroll]);
 
   useEffect(() => {
     if (bottomLinks) {
@@ -148,7 +150,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
 
       <header
         className={cn("z-50 w-full bg-white", {
-          "fixed top-0": fixed,
+          "fixed top-0": fixed || !bottomLinks,
         })}
       >
         <div className="flex items-center border-b border-b-black border-opacity-15 py-[13px]">
@@ -187,7 +189,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
           <div className="flex items-center border-b border-b-black border-opacity-15">
             <Container>
               <div className="flex w-full justify-between">
-                <div className="custom-scrollbar flex gap-[30px] overflow-y-hidden overflow-x-scroll py-[9px]">
+                <div className="custom-scrollbar flex gap-[30px] overflow-y-hidden max-mobile:overflow-x-scroll max-mobile:pb-[2px]">
                   {navbar.map((item) => (
                     <button
                       key={item.id}
@@ -195,7 +197,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
                       className={cn(
                         "cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-[#363636]",
                         {
-                          "relative before:absolute before:bottom-[-9px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#D13A3A]":
+                          "relative before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#D13A3A]":
                             item.id === activeId,
                         },
                       )}
@@ -203,10 +205,17 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
                       {item.title}
                     </button>
                   ))}
+
+                  <Link
+                    href="/orders"
+                    className="cursor-pointer whitespace-nowrap py-[9px] pl-[115px] text-[16px] font-[700] leading-[22px] text-[#363636] mobile:hidden"
+                  >
+                    Доставка и оплата
+                  </Link>
                 </div>
 
                 <Link
-                  href="#"
+                  href="/orders"
                   className="cursor-pointer py-[9px] text-[16px] font-[700] leading-[22px] text-[#363636] max-mobile:hidden"
                 >
                   Доставка и оплата
