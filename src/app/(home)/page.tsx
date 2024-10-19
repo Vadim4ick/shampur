@@ -8,7 +8,7 @@ import { Container } from "@/shared/ui/container";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-[#FAFAFA]">
       <Banner />
       <CatalogPage />
 
