@@ -1,11 +1,21 @@
+"use client";
+
 import { ICatalogItem } from "@/shared/const/catalogItems";
-// import { Minuse } from "@/shared/icons/Minuse";
-// import { Pluse } from "@/shared/icons/Pluse";
+import { Minuse } from "@/shared/icons/Minuse";
+import { Pluse } from "@/shared/icons/Pluse";
 import { calcPrevPriceForSale, formatPrice } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
+import { useBasketStore } from "@/store/basket";
 import Image from "next/image";
 
 const CatalogItem = ({ item }: { item: ICatalogItem }) => {
+  const { addToBasket, basket, increaseCount, decreaseCount } =
+    useBasketStore();
+
+  const findItemToBasket = basket.find(
+    (basketItem) => basketItem.item.id === item.id,
+  );
+
   return (
     <article className="flex h-[360px] flex-col gap-[10px] max-mobile:h-[332px]">
       <div className="relative min-h-[182px]">
@@ -56,26 +66,37 @@ const CatalogItem = ({ item }: { item: ICatalogItem }) => {
             )}
           </div>
 
-          <Button
-            className="h-[44px] max-w-[140px] max-mobile:max-w-[170px]"
-            variant={"revert"}
-          >
-            Добавить
-          </Button>
+          {!findItemToBasket && (
+            <Button
+              onClick={() => addToBasket(item)}
+              className="h-[44px] max-w-[140px] max-mobile:max-w-[170px]"
+              variant={"revert"}
+            >
+              Добавить
+            </Button>
+          )}
 
-          {/* <div className="flex items-center gap-[12px]">
-            <button className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1]">
-              <Minuse />
-            </button>
+          {findItemToBasket && (
+            <div className="flex items-center gap-[12px]">
+              <button
+                onClick={() => decreaseCount(item)}
+                className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1]"
+              >
+                <Minuse />
+              </button>
 
-            <span className="inline-flex size-[24px] items-center justify-center text-[18px] font-[700] leading-[25px] text-[#474747]">
-              1
-            </span>
+              <span className="inline-flex size-[24px] items-center justify-center text-[18px] font-[700] leading-[25px] text-[#474747]">
+                {findItemToBasket.count}
+              </span>
 
-            <button className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1]">
-              <Pluse />
-            </button>
-          </div> */}
+              <button
+                onClick={() => increaseCount(item)}
+                className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1]"
+              >
+                <Pluse />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </article>

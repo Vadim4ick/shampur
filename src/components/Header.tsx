@@ -7,6 +7,7 @@ import { Phone } from "@/shared/icons/Phone";
 import { Time } from "@/shared/icons/Time";
 import { cn } from "@/shared/lib/utils";
 import { Container } from "@/shared/ui/container";
+import { useBasketStore } from "@/store/basket";
 import { useHeaderStore } from "@/store/header";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -16,6 +17,8 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const { fixed, setFixed } = useHeaderStore();
+
+  const { totalCount } = useBasketStore();
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -28,8 +31,6 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   }, [setFixed]);
 
   const handleResize = useCallback(() => {
-    console.log(123123);
-
     if (observerRef.current) {
       const sections = document.querySelectorAll("[data-catalog]");
       sections.forEach((section) => {
@@ -157,7 +158,12 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
           <Container>
             <div className="flex justify-between">
               {/* LOGO */}
-              <div className="h-[46px] w-full max-w-[205px] bg-[#EAEAEA] max-mobile:max-w-[181px]"></div>
+              <Link
+                className="h-[46px] w-full max-w-[205px] bg-[#EAEAEA] max-mobile:max-w-[181px]"
+                href={"/"}
+              >
+                <div />
+              </Link>
               {/* /LOGO */}
 
               <button className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors max-mobile:pl-[9px] [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]">
@@ -170,15 +176,19 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
                 </div>
 
                 {/* Counter */}
-                <div className="relative h-[24px] pr-[10px] max-mobile:pr-[12px]">
-                  <div className="before:absolute before:block before:h-[24px] before:w-[1px] before:bg-[#FF8383]"></div>
-                </div>
+                {totalCount > 0 && (
+                  <>
+                    <div className="relative h-[24px] pr-[10px] max-mobile:pr-[12px]">
+                      <div className="before:absolute before:block before:h-[24px] before:w-[1px] before:bg-[#FF8383]"></div>
+                    </div>
 
-                <div className="mr-[10px] flex size-[22px] items-center justify-center rounded-[100px] bg-[#FF4747] max-mobile:mr-[12px]">
-                  <span className="max-w-[6px] text-[12px] font-[700] leading-[12px] text-white">
-                    1
-                  </span>
-                </div>
+                    <div className="mr-[10px] flex size-[22px] items-center justify-center rounded-[100px] bg-[#FF4747] max-mobile:mr-[12px]">
+                      <span className="text-[12px] font-[700] leading-[12px] text-white">
+                        {totalCount}
+                      </span>
+                    </div>
+                  </>
+                )}
                 {/* /Counter */}
               </button>
             </div>

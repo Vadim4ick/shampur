@@ -12,11 +12,19 @@ export const formatPrice = (price: number) => {
 export const calcPrevPriceForSale = ({
   sale,
   price,
+  count,
 }: {
   sale: number;
   price: number;
+  count?: number;
 }) => {
-  const totalPrice = price + (price * sale) / 100;
+  let totalPrice;
+
+  if (count) {
+    totalPrice = price + (price * count * sale) / 100;
+  } else {
+    totalPrice = price + (price * sale) / 100;
+  }
 
   return formatPrice(totalPrice);
 };

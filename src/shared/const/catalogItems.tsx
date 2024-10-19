@@ -109,7 +109,7 @@ export const catalogItems: ICatalogItems[] = [
     categories: ["Свинина", "Говядина", "Телятина", "Баранина"],
     items: [
       {
-        id: 0,
+        id: 8,
         img: "/img/eat/1@2x.png",
         category: "Свинина",
         title: "Шашлык из свиной вырезки",
@@ -119,7 +119,7 @@ export const catalogItems: ICatalogItems[] = [
         sale: 20,
       },
       {
-        id: 1,
+        id: 9,
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Семечки",
@@ -128,7 +128,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 2,
+        id: 10,
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Яблочко",
@@ -137,7 +137,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 3,
+        id: 11,
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Яблочко",
@@ -146,7 +146,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 4,
+        id: 12,
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из корейки ягнёнка",
@@ -161,7 +161,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 5,
+        id: 13,
         img: "/img/eat/1@2x.png",
         title: "Куриный шашлык",
         category: "Баранина",
@@ -170,7 +170,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 6,
+        id: 14,
         img: "/img/eat/1@2x.png",
         category: "Телятина",
         title: "Шашлык из куриных крыльев",
@@ -179,7 +179,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 7,
+        id: 15,
         img: "/img/eat/1@2x.png",
         category: "Говядина",
         title: "Шашлык из куриных крыльев",
@@ -196,7 +196,7 @@ export const catalogItems: ICatalogItems[] = [
     categories: ["Газ", "Б/газ", "Соки", "Пиво"],
     items: [
       {
-        id: 0,
+        id: 16,
         img: "/img/eat/1@2x.png",
         category: "Газ",
         title: "Кока-кола",
@@ -204,7 +204,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "500 мл",
       },
       {
-        id: 1,
+        id: 17,
         category: "Пиво",
         img: "/img/eat/1@2x.png",
         title: "Кока-кола",
@@ -212,7 +212,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "500 мл",
       },
       {
-        id: 2,
+        id: 18,
         category: "Б/газ",
         img: "/img/eat/1@2x.png",
         title: "Кока-кола",
@@ -220,7 +220,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "500 мл",
       },
       {
-        id: 3,
+        id: 19,
         category: "Соки",
         img: "/img/eat/1@2x.png",
         title: "Кока-кола",
