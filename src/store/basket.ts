@@ -11,31 +11,45 @@ interface State {
   basket: BasketItem[];
   totalCount: number;
 
+  totalPrice: number;
+
   addToBasket: (item: ICatalogItem) => void;
   increaseCount: (item: ICatalogItem) => void;
   decreaseCount: (item: ICatalogItem) => void;
   removeFromBasket: (item: ICatalogItem) => void;
+
+  initializeBasket: () => void;
 }
 
 const calculateTotalCount = (basket: BasketItem[]) =>
   basket.reduce((acc, basketItem) => acc + basketItem.count, 0);
+
+const calculateTotalPrice = (basket: BasketItem[]) =>
+  basket.reduce((acc, basketItem) => acc + basketItem.totalPrice, 0);
 
 const saveBasketToLocalStorage = (basket: BasketItem[]) => {
   localStorage.setItem("basket", JSON.stringify(basket));
 };
 
 const getBasketFromLocalStorage = (): BasketItem[] => {
-  if (typeof window !== "undefined") {
-    const storedBasket = localStorage.getItem("basket");
-    return storedBasket ? JSON.parse(storedBasket) : [];
-  }
-
-  return [];
+  const storedBasket = localStorage.getItem("basket");
+  return storedBasket ? JSON.parse(storedBasket) : [];
 };
 
 export const useBasketStore = create<State>((set) => ({
-  basket: getBasketFromLocalStorage(),
-  totalCount: calculateTotalCount(getBasketFromLocalStorage()),
+  basket: [], // Initially empty on the server
+  totalCount: 0,
+  totalPrice: 0,
+
+  initializeBasket: () => {
+    const storedBasket = getBasketFromLocalStorage();
+
+    set({
+      basket: storedBasket,
+      totalCount: calculateTotalCount(storedBasket),
+      totalPrice: calculateTotalPrice(storedBasket),
+    });
+  },
 
   // Добавление товара в корзину
   addToBasket: (item: ICatalogItem) =>
@@ -70,6 +84,7 @@ export const useBasketStore = create<State>((set) => ({
       return {
         basket: updatedBasket,
         totalCount: calculateTotalCount(updatedBasket),
+        totalPrice: calculateTotalPrice(updatedBasket),
       };
     }),
 
@@ -95,6 +110,7 @@ export const useBasketStore = create<State>((set) => ({
       return {
         basket: updatedBasket,
         totalCount: calculateTotalCount(updatedBasket),
+        totalPrice: calculateTotalPrice(updatedBasket),
       };
     }),
 
@@ -130,6 +146,7 @@ export const useBasketStore = create<State>((set) => ({
       return {
         basket: updatedBasket,
         totalCount: calculateTotalCount(updatedBasket),
+        totalPrice: calculateTotalPrice(updatedBasket),
       };
     }),
 
@@ -145,6 +162,7 @@ export const useBasketStore = create<State>((set) => ({
       return {
         basket: updatedBasket,
         totalCount: calculateTotalCount(updatedBasket),
+        totalPrice: calculateTotalPrice(updatedBasket),
       };
     }),
 }));

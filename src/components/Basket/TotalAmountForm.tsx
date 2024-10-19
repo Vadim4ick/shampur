@@ -1,7 +1,11 @@
 import { Button } from "@/shared/ui/button";
 import { Input } from "../ui/input";
+import { useBasketStore } from "@/store/basket";
+import { formatPrice } from "@/shared/lib/utils";
 
 const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
+  const { totalPrice } = useBasketStore();
+
   return (
     <div className="flex h-fit flex-col gap-4 rounded-[12px] bg-white px-[16px] py-[22px]">
       <div className="flex items-center justify-between border-b border-[#EBEBEB] pb-[24px]">
@@ -9,7 +13,10 @@ const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
           Итого к оплате:
         </span>
         <span className="text-[18px] font-[700] leading-[25px] text-[#D13A3A]">
-          1 340 руб.
+          {formatPrice(
+            isDelivery && totalPrice < 2000 ? totalPrice + 200 : totalPrice,
+          )}{" "}
+          руб.
         </span>
       </div>
 
@@ -20,22 +27,31 @@ const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
               Корзина:
             </span>
             <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
-              1 140 руб.
+              {formatPrice(totalPrice)} руб.
             </span>
           </div>
           <div className="flex items-center justify-between">
-            {isDelivery && (
-              <>
-                <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
-                  Доставка:
-                </span>
-                <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
-                  200 руб.
-                </span>
-              </>
-            )}
-
-            {!isDelivery && (
+            {isDelivery ? (
+              totalPrice < 2000 ? (
+                <>
+                  <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
+                    Доставка:
+                  </span>
+                  <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
+                    200 руб.
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
+                    Доставка:
+                  </span>
+                  <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
+                    Бесплатно
+                  </span>
+                </>
+              )
+            ) : (
               <>
                 <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
                   Самовывоз:

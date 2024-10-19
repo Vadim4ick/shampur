@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 
 import "@/shared/styles/globals.css";
 import { Footer } from "@/components/Footer";
+import { Providers } from "@/shared/providers/Providers";
 
 const manrope = Manrope({
   subsets: ["cyrillic"],
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.className} flex min-h-screen flex-col`}>
-        {children}
+        <Providers>
+          {children}
 
-        <Footer />
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

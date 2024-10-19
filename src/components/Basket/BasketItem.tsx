@@ -43,6 +43,7 @@ const BasketItemCounter = ({
   return (
     <div className="flex h-fit items-center gap-[16px]">
       <button
+        type="button"
         onClick={dec}
         className="flex size-[28px] items-center justify-center rounded-[10px] bg-[#E1E1E1] text-[25px] text-[#474747]"
       >
@@ -54,6 +55,7 @@ const BasketItemCounter = ({
       </span>
 
       <button
+        type="button"
         onClick={inc}
         className="flex size-[28px] items-center justify-center rounded-[10px] bg-[#E1E1E1] text-[25px] text-[#474747]"
       >
@@ -148,6 +150,7 @@ const BasketItem = ({
 
         <div className="flex gap-[9px]">
           <button
+            type="button"
             onClick={() => removeFromBasket(el.item)}
             className="h-fit rounded-[6px] bg-[#FFE5E5] px-[17px] py-[7px] max-mobile:px-[7px]"
           >

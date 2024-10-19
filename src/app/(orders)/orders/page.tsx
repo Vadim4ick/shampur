@@ -12,6 +12,7 @@ import { TypeOf, string, z } from "zod";
 import { Form, Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useState } from "react";
+import { useBasketStore } from "@/store/basket";
 
 const contactFormSchema = z.object({
   email: string().email({
@@ -49,6 +50,8 @@ const createSchemaWithDelivery = (isDelivery: boolean) => {
 const OrdersPage = () => {
   const [activeTab, setActiveTab] = useState("delivery");
 
+  const { totalPrice } = useBasketStore();
+
   return (
     <main className="flex-grow bg-[#f5f5f5] pb-[208px] max-tablet:pb-[108px] max-mobile:pb-[57px]">
       <section className="mt-[calc(58px_+_var(--header-orders-height))] max-mobile:mt-[calc(25px_+_var(--header-orders-height))]">
@@ -68,6 +71,7 @@ const OrdersPage = () => {
               }}
               onSubmit={(values) => {
                 console.log("Form is submitted", values);
+                console.log("totalPrice", totalPrice);
               }}
               validationSchema={toFormikValidationSchema(
                 createSchemaWithDelivery(activeTab === "delivery"),
