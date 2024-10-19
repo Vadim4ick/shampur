@@ -22,6 +22,7 @@ const PersonalData = () => {
             <Input
               isFormik={true}
               name="phone"
+              telMask={true}
               id="phone"
               className="max-w-[723px]"
             />

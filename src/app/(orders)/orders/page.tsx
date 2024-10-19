@@ -24,11 +24,10 @@ const contactFormSchema = z.object({
     .max(50, { message: "Name must be at most 50 characters" }),
   phone: z
     .string()
-    .min(10, { message: "Phone number must be at least 10 digits" })
-    .max(15, { message: "Phone number must be at most 15 digits" })
-    .regex(/^\+?[0-9]+$/, {
-      message: "Phone number can only contain digits and an optional leading +",
-    }), // Только цифры и опциональный +
+    .length(16, { message: "Phone number must be exactly 16 characters long" })
+    .regex(/^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/, {
+      message: "Phone number must be in the format +7(999)999-99-99",
+    }),
 });
 
 // Динамическое добавление полей для адреса доставки

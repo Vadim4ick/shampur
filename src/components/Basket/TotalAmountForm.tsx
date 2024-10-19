@@ -4,7 +4,7 @@ import { useBasketStore } from "@/store/basket";
 import { formatPrice } from "@/shared/lib/utils";
 
 const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
-  const { totalPrice } = useBasketStore();
+  const { totalPrice, basket } = useBasketStore();
 
   return (
     <div className="flex h-fit flex-col gap-4 rounded-[12px] bg-white px-[16px] py-[22px]">
@@ -67,12 +67,13 @@ const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
 
         <div className="flex flex-col gap-2">
           <Input
+            name="promocode"
             type="text"
             placeholder="Промокод (необязательно)*"
             className="text-center text-[14px] font-medium placeholder:text-[#9B9B9B]"
           />
 
-          <Button type="submit" className="h-[56px]">
+          <Button disabled={!basket.length} type="submit" className="h-[56px]">
             Перейти к оплате
           </Button>
 
