@@ -20,9 +20,22 @@ interface State {
 const calculateTotalCount = (basket: BasketItem[]) =>
   basket.reduce((acc, basketItem) => acc + basketItem.count, 0);
 
+const saveBasketToLocalStorage = (basket: BasketItem[]) => {
+  localStorage.setItem("basket", JSON.stringify(basket));
+};
+
+const getBasketFromLocalStorage = (): BasketItem[] => {
+  if (typeof window !== "undefined") {
+    const storedBasket = localStorage.getItem("basket");
+    return storedBasket ? JSON.parse(storedBasket) : [];
+  }
+
+  return [];
+};
+
 export const useBasketStore = create<State>((set) => ({
-  basket: [],
-  totalCount: 0,
+  basket: getBasketFromLocalStorage(),
+  totalCount: calculateTotalCount(getBasketFromLocalStorage()),
 
   // Добавление товара в корзину
   addToBasket: (item: ICatalogItem) =>
@@ -52,6 +65,8 @@ export const useBasketStore = create<State>((set) => ({
         ];
       }
 
+      saveBasketToLocalStorage(updatedBasket);
+
       return {
         basket: updatedBasket,
         totalCount: calculateTotalCount(updatedBasket),
@@ -74,6 +89,8 @@ export const useBasketStore = create<State>((set) => ({
           return basketItem;
         }
       });
+
+      saveBasketToLocalStorage(updatedBasket);
 
       return {
         basket: updatedBasket,
@@ -108,6 +125,8 @@ export const useBasketStore = create<State>((set) => ({
         );
       }
 
+      saveBasketToLocalStorage(updatedBasket);
+
       return {
         basket: updatedBasket,
         totalCount: calculateTotalCount(updatedBasket),
@@ -120,6 +139,8 @@ export const useBasketStore = create<State>((set) => ({
       const updatedBasket = state.basket.filter(
         (basketItem) => basketItem.item.id !== item.id,
       );
+
+      saveBasketToLocalStorage(updatedBasket);
 
       return {
         basket: updatedBasket,
