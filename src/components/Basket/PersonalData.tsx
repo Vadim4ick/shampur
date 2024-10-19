@@ -12,20 +12,30 @@ const PersonalData = () => {
         <div className="flex flex-col gap-[4px]">
           <Label htmlFor="name">Ваше имя</Label>
 
-          <Input id="name" />
+          <Input isFormik={true} name="name" id="name" />
         </div>
 
         <div className="grid grid-cols-2 gap-[40px] max-tablet:gap-[20px] max-mobile:grid-cols-1">
           <div className="flex flex-col gap-[4px]">
             <Label htmlFor="phone">Телефон</Label>
 
-            <Input id="phone" className="max-w-[723px]" />
+            <Input
+              isFormik={true}
+              name="phone"
+              id="phone"
+              className="max-w-[723px]"
+            />
           </div>
 
           <div className="flex flex-col gap-[4px]">
             <Label htmlFor="email">E-mail</Label>
 
-            <Input id="email" className="max-w-[723px]" />
+            <Input
+              id="email"
+              isFormik={true}
+              name="email"
+              className="max-w-[723px]"
+            />
           </div>
         </div>
       </div>

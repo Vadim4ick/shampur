@@ -1,7 +1,7 @@
 import { Button } from "@/shared/ui/button";
 import { Input } from "../ui/input";
 
-const TotalAmountForm = () => {
+const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
   return (
     <div className="flex h-fit flex-col gap-4 rounded-[12px] bg-white px-[16px] py-[22px]">
       <div className="flex items-center justify-between border-b border-[#EBEBEB] pb-[24px]">
@@ -24,12 +24,28 @@ const TotalAmountForm = () => {
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
-              Доставка:
-            </span>
-            <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
-              200 руб.
-            </span>
+            {isDelivery && (
+              <>
+                <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
+                  Доставка:
+                </span>
+                <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
+                  200 руб.
+                </span>
+              </>
+            )}
+
+            {!isDelivery && (
+              <>
+                <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
+                  Самовывоз:
+                </span>
+
+                <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
+                  Бесплатно
+                </span>
+              </>
+            )}
           </div>
         </div>
 
@@ -40,7 +56,9 @@ const TotalAmountForm = () => {
             className="text-center text-[14px] font-medium placeholder:text-[#9B9B9B]"
           />
 
-          <Button className="h-[56px]">Перейти к оплате</Button>
+          <Button type="submit" className="h-[56px]">
+            Перейти к оплате
+          </Button>
 
           <span className="text-center text-[12px] font-[500] leading-[16px] text-[#999999]">
             *Промокод автоматически применится <br /> на следующем этапе оплаты
