@@ -2,6 +2,7 @@
 
 import { useBasketStore } from "@/store/basket";
 import { ReactNode, useEffect, useState } from "react";
+import { Loader } from "../ui/loader";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +20,11 @@ const Providers = ({ children }: { children: ReactNode }) => {
   }, []);
 
   if (isLoading) {
-    return <div>Load...</div>;
+    return (
+      <div className="z-50 h-screen w-full bg-white">
+        <Loader className="absolute left-1/2 top-1/2 size-10" />
+      </div>
+    );
   }
 
   return <>{children}</>;

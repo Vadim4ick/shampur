@@ -10,6 +10,7 @@ import { Container } from "@/shared/ui/container";
 import { useBasketStore } from "@/store/basket";
 import { useHeaderStore } from "@/store/header";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
@@ -17,6 +18,8 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const { fixed, setFixed } = useHeaderStore();
+
+  const router = useRouter();
 
   const { totalCount } = useBasketStore();
 
@@ -166,7 +169,10 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
               </Link>
               {/* /LOGO */}
 
-              <button className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors max-mobile:pl-[9px] [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]">
+              <button
+                onClick={() => router.push("/orders")}
+                className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors max-mobile:pl-[9px] [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]"
+              >
                 <div className="flex items-center gap-[8px] pr-[21px] max-mobile:pr-[7px]">
                   <Grill />
 

@@ -14,7 +14,9 @@ const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
         </span>
         <span className="text-[18px] font-[700] leading-[25px] text-[#D13A3A]">
           {formatPrice(
-            isDelivery && totalPrice < 2000 ? totalPrice + 200 : totalPrice,
+            isDelivery && totalPrice < 2000 && basket.length
+              ? totalPrice + 200
+              : totalPrice,
           )}{" "}
           руб.
         </span>
@@ -32,7 +34,7 @@ const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
           </div>
           <div className="flex items-center justify-between">
             {isDelivery ? (
-              totalPrice < 2000 ? (
+              totalPrice < 2000 && basket.length ? (
                 <>
                   <span className="text-[14px] font-[700] leading-[19px] text-[#363636]">
                     Доставка:
