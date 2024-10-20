@@ -11,7 +11,6 @@ import { Container } from "@/shared/ui/container";
 import { TypeOf, string, z } from "zod";
 import { Form, Formik } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { useState } from "react";
 import { useBasketStore } from "@/store/basket";
 
 const contactFormSchema = z.object({
@@ -47,9 +46,7 @@ const createSchemaWithDelivery = (isDelivery: boolean) => {
 };
 
 const OrdersPage = () => {
-  const [activeTab, setActiveTab] = useState("delivery");
-
-  const { totalPrice } = useBasketStore();
+  const { totalPrice, isDelivery, setDelivery } = useBasketStore();
 
   return (
     <main className="flex-grow bg-[#f5f5f5] pb-[208px] max-tablet:pb-[108px] max-mobile:pb-[57px]">
@@ -71,9 +68,10 @@ const OrdersPage = () => {
               onSubmit={(values) => {
                 console.log("Form is submitted", values);
                 console.log("totalPrice", totalPrice);
+                console.log("isDelivery", isDelivery);
               }}
               validationSchema={toFormikValidationSchema(
-                createSchemaWithDelivery(activeTab === "delivery"),
+                createSchemaWithDelivery(isDelivery),
               )}
             >
               {(FormikState) => {
@@ -92,7 +90,9 @@ const OrdersPage = () => {
                         </div>
 
                         <Tabs
-                          onValueChange={setActiveTab}
+                          onValueChange={(value) =>
+                            setDelivery(value === "delivery")
+                          }
                           defaultValue="delivery"
                           className="flex flex-col gap-[28px] max-mobile:gap-4"
                         >
@@ -169,7 +169,7 @@ const OrdersPage = () => {
                         </Tabs>
                       </div>
 
-                      <TotalAmountForm isDelivery={activeTab === "delivery"} />
+                      <TotalAmountForm />
                     </div>
                   </Form>
                 );

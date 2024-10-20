@@ -8,6 +8,7 @@ export interface BasketItem {
 }
 
 interface State {
+  isDelivery: boolean;
   basket: BasketItem[];
   totalCount: number;
 
@@ -18,6 +19,7 @@ interface State {
   decreaseCount: (item: ICatalogItem) => void;
   removeFromBasket: (item: ICatalogItem) => void;
 
+  setDelivery: (val: boolean) => void;
   initializeBasket: () => void;
 }
 
@@ -37,9 +39,12 @@ const getBasketFromLocalStorage = (): BasketItem[] => {
 };
 
 export const useBasketStore = create<State>((set) => ({
-  basket: [], // Initially empty on the server
+  basket: [],
   totalCount: 0,
   totalPrice: 0,
+  isDelivery: true,
+
+  setDelivery: (val: boolean) => set({ isDelivery: val }),
 
   initializeBasket: () => {
     const storedBasket = getBasketFromLocalStorage();

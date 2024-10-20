@@ -3,8 +3,8 @@ import { Input } from "../ui/input";
 import { useBasketStore } from "@/store/basket";
 import { formatPrice } from "@/shared/lib/utils";
 
-const TotalAmountForm = ({ isDelivery }: { isDelivery: boolean }) => {
-  const { totalPrice, basket } = useBasketStore();
+const TotalAmountForm = () => {
+  const { totalPrice, basket, isDelivery } = useBasketStore();
 
   return (
     <div className="flex h-fit flex-col gap-4 rounded-[12px] bg-white px-[16px] py-[22px]">
