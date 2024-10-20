@@ -10,10 +10,10 @@ import Image from "next/image";
 
 const BasketItemPrices = ({
   totalPrice,
-  count,
+  sale,
 }: {
   totalPrice: number;
-  count: number;
+  sale?: number;
 }) => {
   return (
     <div className="flex flex-col">
@@ -21,12 +21,15 @@ const BasketItemPrices = ({
         {formatPrice(totalPrice)} руб.
       </div>
 
-      {/* {sale && (
+      {sale && (
         <div className="relative whitespace-nowrap text-[13px] font-[400] leading-[18px] text-[#A6A6A6] line-through">
-          {calcPrevPriceForSale({ sale: sale, price: price, count: count })}{" "}
+          {calcPrevPriceForSale({
+            sale: sale,
+            price: totalPrice,
+          })}{" "}
           руб.
         </div>
-      )} */}
+      )}
     </div>
   );
 };
@@ -118,11 +121,7 @@ const BasketItem = ({
           </div>
 
           {!isMobile && (
-            <BasketItemPrices
-              totalPrice={el.totalPrice}
-              // sale={el.item.sale}
-              count={el.count}
-            />
+            <BasketItemPrices totalPrice={el.totalPrice} sale={el.item.sale} />
           )}
         </div>
 
@@ -141,11 +140,7 @@ const BasketItem = ({
         )}
       >
         {isMobile && (
-          <BasketItemPrices
-            totalPrice={el.totalPrice}
-            // sale={el.item.sale}
-            count={el.count}
-          />
+          <BasketItemPrices totalPrice={el.totalPrice} sale={el.item.sale} />
         )}
 
         <div className="flex gap-[9px]">
