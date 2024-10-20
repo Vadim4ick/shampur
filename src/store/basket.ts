@@ -1,5 +1,6 @@
 import { ICatalogItem } from "@/shared/const/catalogItems";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface BasketItem {
   count: number;
@@ -20,7 +21,6 @@ interface State {
   removeFromBasket: (item: ICatalogItem) => void;
 
   setDelivery: (val: boolean) => void;
-  initializeBasket: () => void;
 }
 
 const calculateTotalCount = (basket: BasketItem[]) =>
@@ -29,145 +29,125 @@ const calculateTotalCount = (basket: BasketItem[]) =>
 const calculateTotalPrice = (basket: BasketItem[]) =>
   basket.reduce((acc, basketItem) => acc + basketItem.totalPrice, 0);
 
-const saveBasketToLocalStorage = (basket: BasketItem[]) => {
-  localStorage.setItem("basket", JSON.stringify(basket));
-};
+export const useBasketStore = create<State>()(
+  persist(
+    (set) => ({
+      basket: [],
+      totalCount: 0,
+      totalPrice: 0,
+      isDelivery: true,
 
-const getBasketFromLocalStorage = (): BasketItem[] => {
-  const storedBasket = localStorage.getItem("basket");
-  return storedBasket ? JSON.parse(storedBasket) : [];
-};
+      setDelivery: (val: boolean) => set({ isDelivery: val }),
 
-export const useBasketStore = create<State>((set) => ({
-  basket: [],
-  totalCount: 0,
-  totalPrice: 0,
-  isDelivery: true,
+      // Добавление товара в корзину
+      addToBasket: (item: ICatalogItem) =>
+        set((state) => {
+          const existingItem = state.basket.find(
+            (basketItem) => basketItem.item.id === item.id,
+          );
 
-  setDelivery: (val: boolean) => set({ isDelivery: val }),
+          let updatedBasket;
 
-  initializeBasket: () => {
-    const storedBasket = getBasketFromLocalStorage();
+          if (existingItem) {
+            const newCount = existingItem.count + 1;
 
-    set({
-      basket: storedBasket,
-      totalCount: calculateTotalCount(storedBasket),
-      totalPrice: calculateTotalPrice(storedBasket),
-    });
-  },
-
-  // Добавление товара в корзину
-  addToBasket: (item: ICatalogItem) =>
-    set((state) => {
-      const existingItem = state.basket.find(
-        (basketItem) => basketItem.item.id === item.id,
-      );
-
-      let updatedBasket;
-
-      if (existingItem) {
-        const newCount = existingItem.count + 1;
-
-        updatedBasket = state.basket.map((basketItem) =>
-          basketItem.item.id === item.id
-            ? {
-                ...basketItem,
-                count: newCount,
-                totalPrice: item.price * newCount,
-              }
-            : basketItem,
-        );
-      } else {
-        updatedBasket = [
-          ...state.basket,
-          { item, count: 1, totalPrice: item.price },
-        ];
-      }
-
-      saveBasketToLocalStorage(updatedBasket);
-
-      return {
-        basket: updatedBasket,
-        totalCount: calculateTotalCount(updatedBasket),
-        totalPrice: calculateTotalPrice(updatedBasket),
-      };
-    }),
-
-  // Увеличение количества товара в корзине
-  increaseCount: (item: ICatalogItem) =>
-    set((state) => {
-      const updatedBasket = state.basket.map((basketItem) => {
-        if (basketItem.item.id === item.id) {
-          const newCount = basketItem.count + 1;
+            updatedBasket = state.basket.map((basketItem) =>
+              basketItem.item.id === item.id
+                ? {
+                    ...basketItem,
+                    count: newCount,
+                    totalPrice: item.price * newCount,
+                  }
+                : basketItem,
+            );
+          } else {
+            updatedBasket = [
+              ...state.basket,
+              { item, count: 1, totalPrice: item.price },
+            ];
+          }
 
           return {
-            ...basketItem,
-            count: newCount,
-            totalPrice: item.price * newCount,
+            basket: updatedBasket,
+            totalCount: calculateTotalCount(updatedBasket),
+            totalPrice: calculateTotalPrice(updatedBasket),
           };
-        } else {
-          return basketItem;
-        }
-      });
+        }),
 
-      saveBasketToLocalStorage(updatedBasket);
+      // Увеличение количества товара в корзине
+      increaseCount: (item: ICatalogItem) =>
+        set((state) => {
+          const updatedBasket = state.basket.map((basketItem) => {
+            if (basketItem.item.id === item.id) {
+              const newCount = basketItem.count + 1;
 
-      return {
-        basket: updatedBasket,
-        totalCount: calculateTotalCount(updatedBasket),
-        totalPrice: calculateTotalPrice(updatedBasket),
-      };
-    }),
-
-  // Уменьшение количества товара в корзине
-  decreaseCount: (item: ICatalogItem) =>
-    set((state) => {
-      const existingItem = state.basket.find(
-        (basketItem) => basketItem.item.id === item.id,
-      );
-
-      let updatedBasket;
-
-      if (existingItem && existingItem.count > 1) {
-        const newCount = existingItem.count - 1;
-
-        updatedBasket = state.basket.map((basketItem) =>
-          basketItem.item.id === item.id
-            ? {
+              return {
                 ...basketItem,
                 count: newCount,
                 totalPrice: item.price * newCount,
-              }
-            : basketItem,
-        );
-      } else {
-        updatedBasket = state.basket.filter(
-          (basketItem) => basketItem.item.id !== item.id,
-        );
-      }
+              };
+            } else {
+              return basketItem;
+            }
+          });
 
-      saveBasketToLocalStorage(updatedBasket);
+          return {
+            basket: updatedBasket,
+            totalCount: calculateTotalCount(updatedBasket),
+            totalPrice: calculateTotalPrice(updatedBasket),
+          };
+        }),
 
-      return {
-        basket: updatedBasket,
-        totalCount: calculateTotalCount(updatedBasket),
-        totalPrice: calculateTotalPrice(updatedBasket),
-      };
+      // Уменьшение количества товара в корзине
+      decreaseCount: (item: ICatalogItem) =>
+        set((state) => {
+          const existingItem = state.basket.find(
+            (basketItem) => basketItem.item.id === item.id,
+          );
+
+          let updatedBasket;
+
+          if (existingItem && existingItem.count > 1) {
+            const newCount = existingItem.count - 1;
+
+            updatedBasket = state.basket.map((basketItem) =>
+              basketItem.item.id === item.id
+                ? {
+                    ...basketItem,
+                    count: newCount,
+                    totalPrice: item.price * newCount,
+                  }
+                : basketItem,
+            );
+          } else {
+            updatedBasket = state.basket.filter(
+              (basketItem) => basketItem.item.id !== item.id,
+            );
+          }
+
+          return {
+            basket: updatedBasket,
+            totalCount: calculateTotalCount(updatedBasket),
+            totalPrice: calculateTotalPrice(updatedBasket),
+          };
+        }),
+
+      // Удаление товара из корзины
+      removeFromBasket: (item: ICatalogItem) =>
+        set((state) => {
+          const updatedBasket = state.basket.filter(
+            (basketItem) => basketItem.item.id !== item.id,
+          );
+
+          return {
+            basket: updatedBasket,
+            totalCount: calculateTotalCount(updatedBasket),
+            totalPrice: calculateTotalPrice(updatedBasket),
+          };
+        }),
     }),
-
-  // Удаление товара из корзины
-  removeFromBasket: (item: ICatalogItem) =>
-    set((state) => {
-      const updatedBasket = state.basket.filter(
-        (basketItem) => basketItem.item.id !== item.id,
-      );
-
-      saveBasketToLocalStorage(updatedBasket);
-
-      return {
-        basket: updatedBasket,
-        totalCount: calculateTotalCount(updatedBasket),
-        totalPrice: calculateTotalPrice(updatedBasket),
-      };
-    }),
-}));
+    {
+      name: "basket",
+    },
+  ),
+);

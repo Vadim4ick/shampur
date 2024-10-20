@@ -1,19 +1,14 @@
 "use client";
 
-import { useBasketStore } from "@/store/basket";
 import { ReactNode, useEffect, useState } from "react";
 import { Loader } from "../ui/loader";
+import { useBasketStore } from "@/store/basket";
+import { useStore } from "../hooks/useStore";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  const initializeBasket = useBasketStore((state) => state.initializeBasket);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    initializeBasket();
-  }, [initializeBasket, isLoading]);
+  useStore(useBasketStore, (state) => state);
 
   useEffect(() => {
     setIsLoading(false);
