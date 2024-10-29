@@ -12,7 +12,7 @@ const TotalAmountForm = () => {
         <span className="text-[18px] font-[700] leading-[25px] text-[#363636]">
           Итого к оплате:
         </span>
-        <span className="text-[18px] font-[700] leading-[25px] text-[#D13A3A]">
+        <span className="text-[18px] font-[700] leading-[25px] text-[#363636]">
           {formatPrice(
             isDelivery && totalPrice < 2000 && basket.length
               ? totalPrice + 200

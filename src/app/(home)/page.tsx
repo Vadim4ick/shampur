@@ -3,7 +3,6 @@ import { CatalogPage } from "@/components/CatalogPage";
 import { DeliveryIcon } from "@/shared/icons/DeliveryIcon";
 import { PaymentIcon } from "@/shared/icons/PaymentIcon";
 import { TimeIcon } from "@/shared/icons/TimeIcon";
-import { Button } from "@/shared/ui/button";
 import { Container } from "@/shared/ui/container";
 
 export default function Home() {
@@ -30,7 +29,7 @@ export default function Home() {
                   </p>
                   <p className="text-[16px] font-[700] leading-[22px] text-[#363636]">
                     При заказе от 2000 руб. -{" "}
-                    <span className="uppercase text-[#D13A3A]">БЕСПЛАТНО</span>
+                    <span className="uppercase text-[#FFAF10]">БЕСПЛАТНО</span>
                   </p>
                 </div>
               </article>
@@ -99,12 +98,9 @@ export default function Home() {
                   </p>
                 </div>
 
-                <Button
-                  className="h-[56px] max-w-[224px] max-mobile:max-w-full"
-                  variant={"revert"}
-                >
+                <button className="h-[56px] max-w-[224px] rounded-[10px] border border-[#E7A013] bg-white font-bold text-[#CF8E0B] transition-colors max-mobile:max-w-full [@media(any-hover:hover){&:hover}]:bg-[#E7A013] [@media(any-hover:hover){&:hover}]:text-[#363636]">
                   Перейти к меню
-                </Button>
+                </button>
               </div>
 
               <div className="h-[457px] w-full max-w-[489px] shrink-0 rounded-[12px] bg-[#EDEDED] max-mobile:h-[335px]"></div>

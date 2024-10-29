@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[#D13A3A] text-white gap-2 [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]",
+          "bg-[#FFAF10] text-[#363636] gap-2 [@media(any-hover:hover){&:hover}]:bg-[#FFC043]",
         revert:
           "bg-transparent border border-[#D13A3A] text-[#D13A3A] [@media(any-hover:hover){&:hover}]:text-white [@media(any-hover:hover){&:hover}]:bg-[#D13A3A]",
       },

@@ -110,7 +110,7 @@ const Banner = () => {
               <button
                 key={index}
                 className={`size-2 cursor-default rounded-full transition-colors ${
-                  current === index + 1 ? "bg-[#D13A3A]" : "bg-[#D6D6D6]"
+                  current === index + 1 ? "bg-[#FFAF10]" : "bg-[#D6D6D6]"
                 }`}
                 // onClick={() => api?.scrollTo(index)}
               />

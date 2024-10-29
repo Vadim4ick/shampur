@@ -28,7 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     const baseClass =
-      "flex h-[52px] w-full rounded-[8px] border border-[#EDEDED] border-input bg-[#F3F3F3] pl-[10px] font-[700] text-[#363636] outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-50";
+      "flex h-[52px] w-full rounded-[8px] border border-[#EDEDED] focus:border-[#FFAF10] border-input bg-[#F3F3F3] pl-[10px] font-[700] text-[#363636] outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-50";
     const errorClass =
       isFormik && meta.touched && meta.error
         ? "border-[#D13A3A] text-[#D13A3A]"

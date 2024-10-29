@@ -48,7 +48,7 @@ const BasketItemCounter = ({
       <button
         type="button"
         onClick={dec}
-        className="flex size-[28px] items-center justify-center rounded-[10px] bg-[#E1E1E1] text-[25px] text-[#474747]"
+        className="flex size-[28px] items-center justify-center rounded-[10px] bg-[#E1E1E1] text-[25px] text-[#474747] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#C7C7C7]"
       >
         <Minuse />
       </button>
@@ -60,7 +60,7 @@ const BasketItemCounter = ({
       <button
         type="button"
         onClick={inc}
-        className="flex size-[28px] items-center justify-center rounded-[10px] bg-[#E1E1E1] text-[25px] text-[#474747]"
+        className="flex size-[28px] items-center justify-center rounded-[10px] bg-[#E1E1E1] text-[25px] text-[#474747] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#C7C7C7]"
       >
         <Pluse />
       </button>

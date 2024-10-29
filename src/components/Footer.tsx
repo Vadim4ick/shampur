@@ -2,6 +2,7 @@
 
 import { useMediaQuery } from "@/shared/hooks/useMedia";
 import { Location } from "@/shared/icons/Location";
+import { LogoFooter } from "@/shared/icons/LogoFooter";
 import { Phone } from "@/shared/icons/Phone";
 import { Tg } from "@/shared/icons/social/Tg";
 import { Vk } from "@/shared/icons/social/Vk";
@@ -12,7 +13,7 @@ import Link from "next/link";
 
 const SocialsComponent = () => {
   return (
-    <div className="flex w-fit flex-col items-center gap-[10px]">
+    <div className="flex w-fit items-center gap-[10px] max-mobile:flex-col">
       <p className="text-[14px] font-[600] leading-[19px] text-white">
         Мы в соц сетях:
       </p>
@@ -34,6 +35,26 @@ const SocialsComponent = () => {
   );
 };
 
+const Policy = () => {
+  return (
+    <div className="flex w-full flex-col gap-4 max-mobile:flex-row max-mobile:justify-between">
+      <Link
+        className="text-[12px] font-[500] leading-[16px] text-[#B6B6B6]"
+        href="#"
+      >
+        Публичная оферта
+      </Link>
+
+      <Link
+        className="text-[12px] font-[500] leading-[16px] text-[#B6B6B6]"
+        href="#"
+      >
+        Пользовательское соглашение
+      </Link>
+    </div>
+  );
+};
+
 const Footer = () => {
   const isMobile = useMediaQuery(768);
 
@@ -41,12 +62,15 @@ const Footer = () => {
     <footer className="bg-[#363636] pb-[17px] pt-[39px] max-mobile:py-[44px]">
       <Container>
         <div className="flex justify-between gap-4 max-mobile:flex-col max-mobile:gap-[48px]">
-          <div className="flex flex-col justify-between gap-4 mobile:pb-[26px]">
-            {/* Logo */}
-            <div className="h-[68px] w-[307px] bg-[#414141]"></div>
-            {/* /Logo */}
+          <div className="flex flex-col justify-between gap-4">
+            <Link
+              className="flex w-full items-center justify-center max-mobile:mb-6"
+              href="/"
+            >
+              <LogoFooter className="mobile:max-h-[155px] mobile:max-w-[222px]" />
+            </Link>
 
-            {!isMobile && <SocialsComponent />}
+            {!isMobile && <Policy />}
           </div>
 
           <div className="flex flex-col justify-between gap-[57px] max-mobile:items-center max-mobile:gap-[48px]">
@@ -83,23 +107,8 @@ const Footer = () => {
               </li>
             </ul>
 
-            {isMobile && <SocialsComponent />}
-
-            <div className="flex w-full items-center gap-[55px] max-mobile:justify-between max-mobile:self-start">
-              <Link
-                className="text-[12px] font-[500] leading-[16px] text-[#B6B6B6]"
-                href="#"
-              >
-                Публичная оферта
-              </Link>
-
-              <Link
-                className="text-[12px] font-[500] leading-[16px] text-[#B6B6B6]"
-                href="#"
-              >
-                Пользовательское соглашение
-              </Link>
-            </div>
+            <SocialsComponent />
+            {isMobile && <Policy />}
           </div>
         </div>
       </Container>

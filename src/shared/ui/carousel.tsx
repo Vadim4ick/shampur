@@ -214,7 +214,7 @@ const CarouselPrevious = React.forwardRef<
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft className="text-[#363636] transition-colors group-hover:text-[#D13A3A]" />
+      <ArrowLeft className="text-[#363636] transition-colors group-hover:text-[#FFC043]" />
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -241,7 +241,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ArrowLeft className="rotate-180 text-[#363636] transition-colors group-hover:text-[#D13A3A]" />
+      <ArrowLeft className="rotate-180 text-[#363636] transition-colors group-hover:text-[#FFC043]" />
       <span className="sr-only">Next slide</span>
     </Button>
   );

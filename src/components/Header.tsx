@@ -2,6 +2,7 @@
 
 import { navbar } from "@/shared/const/navbar";
 import { Grill } from "@/shared/icons/Grill";
+import { HeaderLogo } from "@/shared/icons/HeaderLogo";
 import { Location } from "@/shared/icons/Location";
 import { Phone } from "@/shared/icons/Phone";
 import { Time } from "@/shared/icons/Time";
@@ -115,7 +116,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
       {bottomLinks && (
         <div
           ref={ref}
-          className="flex h-[40px] items-center bg-[#363636] max-lg:hidden"
+          className="header-shadow-top flex h-[40px] items-center bg-[#363636] max-lg:hidden"
         >
           <Container>
             <div className="flex justify-between">
@@ -157,26 +158,26 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
           "fixed top-0": fixed || !bottomLinks,
         })}
       >
-        <div className="flex items-center border-b border-b-black border-opacity-15 py-[13px]">
+        <div className="header-shadow flex items-center bg-[#363636] py-[13px]">
           <Container>
             <div className="flex justify-between">
               {/* LOGO */}
               <Link
-                className="h-[46px] w-full max-w-[205px] bg-[#EAEAEA] max-mobile:max-w-[181px]"
+                className="max-mobile:max-h-[36px] max-mobile:max-w-[200px]"
                 href={"/"}
               >
-                <div />
+                <HeaderLogo />
               </Link>
               {/* /LOGO */}
 
               <button
                 onClick={() => router.push("/orders")}
-                className="flex h-[44px] items-center rounded-[10px] bg-[#D13A3A] pl-[14px] transition-colors max-mobile:pl-[9px] [@media(any-hover:hover){&:hover}]:bg-[#BF3A3A]"
+                className="flex h-[44px] items-center rounded-[10px] border border-[#FFAF10] bg-[#363636] pl-[14px] transition-colors max-mobile:pl-[9px]"
               >
                 <div className="flex items-center gap-[8px] pr-[21px] max-mobile:pr-[7px]">
                   <Grill />
 
-                  <span className="text-[14px] font-[700] leading-[19px] text-white max-mobile:hidden">
+                  <span className="text-[14px] font-[700] leading-[19px] text-[#FFAF10] max-mobile:hidden">
                     Корзина
                   </span>
                 </div>
@@ -185,11 +186,11 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
                 {totalCount > 0 && (
                   <>
                     <div className="relative h-[24px] pr-[10px] max-mobile:pr-[12px]">
-                      <div className="before:absolute before:block before:h-[24px] before:w-[1px] before:bg-[#FF8383]"></div>
+                      <div className="before:absolute before:block before:h-[24px] before:w-[1px] before:bg-[#FFAF10]"></div>
                     </div>
 
-                    <div className="mr-[10px] flex size-[22px] items-center justify-center rounded-[100px] bg-[#FF4747] max-mobile:mr-[12px]">
-                      <span className="text-[12px] font-[700] leading-[12px] text-white">
+                    <div className="mr-[10px] flex size-[22px] items-center justify-center rounded-[100px] bg-[#FFAF10] max-mobile:mr-[12px]">
+                      <span className="text-[12px] font-[700] leading-[12px] text-[#363636] max-mobile:text-white">
                         {totalCount}
                       </span>
                     </div>
@@ -202,7 +203,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
         </div>
 
         {bottomLinks && (
-          <div className="flex items-center border-b border-b-black border-opacity-15">
+          <div className="flex items-center bg-[#363636]">
             <Container>
               <div className="flex w-full justify-between">
                 <div className="custom-scrollbar flex gap-[30px] overflow-y-hidden max-mobile:overflow-x-scroll max-mobile:pb-[2px]">
@@ -211,9 +212,9 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
                       key={item.id}
                       onClick={() => onClickNavbar(item.id)}
                       className={cn(
-                        "cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-[#363636]",
+                        "cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-white",
                         {
-                          "relative before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#D13A3A]":
+                          "relative before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#FFAF10]":
                             item.id === activeId,
                         },
                       )}
@@ -224,7 +225,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
 
                   <Link
                     href="/orders"
-                    className="cursor-pointer whitespace-nowrap py-[9px] pl-[115px] text-[16px] font-[700] leading-[22px] text-[#363636] mobile:hidden"
+                    className="cursor-pointer whitespace-nowrap py-[9px] pl-[115px] text-[16px] font-[700] leading-[22px] text-white mobile:hidden"
                   >
                     Доставка и оплата
                   </Link>
@@ -232,7 +233,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
 
                 <Link
                   href="/orders"
-                  className="cursor-pointer py-[9px] text-[16px] font-[700] leading-[22px] text-[#363636] max-mobile:hidden"
+                  className="cursor-pointer py-[9px] text-[16px] font-[700] leading-[22px] text-white max-mobile:hidden"
                 >
                   Доставка и оплата
                 </Link>

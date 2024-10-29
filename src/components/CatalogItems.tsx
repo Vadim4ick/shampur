@@ -45,7 +45,7 @@ const CatalogItems = ({
             className={cn(
               "cursor-pointer rounded-full border bg-[#E9E9E9] px-[11px] py-[7px] text-[15px] font-semibold leading-[20px] text-[#363636]",
               {
-                "border border-[#D13A3A] bg-[#F0F0F0] text-[#D13A3A]":
+                "border border-[#FFC043] bg-transparent text-[#DD9B17]":
                   !activeCategory,
               },
             )}
@@ -61,7 +61,7 @@ const CatalogItems = ({
                 className={cn(
                   "cursor-pointer rounded-full border bg-[#E9E9E9] px-[11px] py-[7px] text-[15px] font-semibold leading-[20px] text-[#363636]",
                   {
-                    "border border-[#D13A3A] bg-[#F0F0F0] text-[#D13A3A]":
+                    "border border-[#FFC043] bg-transparent text-[#DD9B17]":
                       activeCategory === category,
                   },
                 )}

@@ -70,7 +70,6 @@ const CatalogItem = ({ item }: { item: ICatalogItem }) => {
             <Button
               onClick={() => addToBasket(item)}
               className="h-[44px] max-w-[140px] max-mobile:max-w-[170px]"
-              variant={"revert"}
             >
               Добавить
             </Button>
@@ -80,7 +79,7 @@ const CatalogItem = ({ item }: { item: ICatalogItem }) => {
             <div className="flex items-center gap-[12px]">
               <button
                 onClick={() => decreaseCount(item)}
-                className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1]"
+                className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#C7C7C7]"
               >
                 <Minuse />
               </button>
@@ -91,7 +90,7 @@ const CatalogItem = ({ item }: { item: ICatalogItem }) => {
 
               <button
                 onClick={() => increaseCount(item)}
-                className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1]"
+                className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#C7C7C7]"
               >
                 <Pluse />
               </button>

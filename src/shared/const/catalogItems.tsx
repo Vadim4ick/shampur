@@ -20,7 +20,7 @@ export const catalogItems: ICatalogItems[] = [
   {
     id: 0,
     title: "Шашлык",
-    categories: ["Свинина", "Говядина", "Телятина", "Баранина"],
+    categories: ["Свинина", "Курица", "Телятина", "Баранина"],
     items: [
       {
         id: 0,
@@ -78,7 +78,7 @@ export const catalogItems: ICatalogItems[] = [
         id: 5,
         img: "/img/eat/1@2x.png",
         category: "Телятина",
-        title: "Куриный шашлык",
+        title: "Шашлык из телятины",
         description: ["Курица", "лук", "лаваш", "аджика"],
         price: 450,
         weight: "200/50 г",
@@ -86,7 +86,7 @@ export const catalogItems: ICatalogItems[] = [
       {
         id: 6,
         img: "/img/eat/1@2x.png",
-        category: "Телятина",
+        category: "Курица",
         title: "Шашлык из куриных крыльев",
         description: ["Куриные крылья", "лаваш", "лук", "аджика"],
         price: 500,
@@ -95,7 +95,7 @@ export const catalogItems: ICatalogItems[] = [
       {
         id: 7,
         img: "/img/eat/1@2x.png",
-        category: "Говядина",
+        category: "Курица",
         title: "Шашлык из куриных крыльев",
         description: ["Куриные крылья", "лаваш", "лук", "аджика"],
         price: 500,
@@ -106,7 +106,7 @@ export const catalogItems: ICatalogItems[] = [
   {
     id: 1,
     title: "Люля-Кебаб",
-    categories: ["Свинина", "Говядина", "Телятина", "Баранина"],
+    categories: ["Свинина", "Курица", "Телятина", "Баранина"],
     items: [
       {
         id: 8,
@@ -148,7 +148,7 @@ export const catalogItems: ICatalogItems[] = [
       {
         id: 12,
         img: "/img/eat/1@2x.png",
-        category: "Баранина",
+        category: "Телятина",
         title: "Шашлык из корейки ягнёнка",
         description: [
           "Баранья корейка",
@@ -164,7 +164,7 @@ export const catalogItems: ICatalogItems[] = [
         id: 13,
         img: "/img/eat/1@2x.png",
         title: "Куриный шашлык",
-        category: "Баранина",
+        category: "Курица",
         description: ["Курица", "лук", "лаваш", "аджика"],
         price: 450,
         weight: "200/50 г",
@@ -172,7 +172,7 @@ export const catalogItems: ICatalogItems[] = [
       {
         id: 14,
         img: "/img/eat/1@2x.png",
-        category: "Телятина",
+        category: "Курица",
         title: "Шашлык из куриных крыльев",
         description: ["Куриные крылья", "лаваш", "лук", "аджика"],
         price: 500,
@@ -181,7 +181,7 @@ export const catalogItems: ICatalogItems[] = [
       {
         id: 15,
         img: "/img/eat/1@2x.png",
-        category: "Говядина",
+        category: "Курица",
         title: "Шашлык из куриных крыльев",
         description: ["Куриные крылья", "лаваш", "лук", "аджика"],
         price: 500,
@@ -207,7 +207,7 @@ export const catalogItems: ICatalogItems[] = [
         id: 17,
         category: "Пиво",
         img: "/img/eat/1@2x.png",
-        title: "Кока-кола",
+        title: "Жигулевское",
         price: 150,
         weight: "500 мл",
       },
@@ -215,7 +215,7 @@ export const catalogItems: ICatalogItems[] = [
         id: 18,
         category: "Б/газ",
         img: "/img/eat/1@2x.png",
-        title: "Кока-кола",
+        title: "Аква",
         price: 150,
         weight: "500 мл",
       },
@@ -223,7 +223,7 @@ export const catalogItems: ICatalogItems[] = [
         id: 19,
         category: "Соки",
         img: "/img/eat/1@2x.png",
-        title: "Кока-кола",
+        title: "Добрый",
         price: 150,
         weight: "500 мл",
       },
