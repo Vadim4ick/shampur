@@ -3,8 +3,9 @@
 import { catalogItems } from "@/shared/const/catalogItems";
 import { Container } from "@/shared/ui/container";
 import { CatalogItems } from "./CatalogItems";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useStoreCatalog } from "@/store/catalog";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 const fetchCatalog = async () => {
   const response = await fetch("/api/getMenuId", {
@@ -17,33 +18,54 @@ const fetchCatalog = async () => {
 
 const CatalogPage = () => {
   const { setItemCategories, itemCategories } = useStoreCatalog();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCatalog().then((data) => {
       setItemCategories(data.itemCategories);
+      setLoading(false);
     });
   }, [setItemCategories]);
-
-  // const transformedData = itemCategories.map((item) => ({
-  //   id: item.id,
-  //   title: item.name,
-  //   items: { ...item.items },
-  // }));
 
   return (
     <section>
       <Container>
         <div className="flex flex-col justify-between gap-[52px] max-mobile:gap-[48px]">
-          {itemCategories.map((el, idx) => {
-            const isLastItem = idx === catalogItems.length - 1;
+          {loading ? (
+            <>
+              {[...Array(1)].map((_, idx) => (
+                <div key={idx} className="flex flex-col gap-[26px]">
+                  <div className="flex flex-col gap-[10px]">
+                    <Skeleton className="h-[38px] w-full" />
 
-            return <CatalogItems key={el.id} el={el} isLastItem={isLastItem} />;
-          })}
-          {/* {catalogItems.map((el, idx) => {
-            const isLastItem = idx === catalogItems.length - 1;
+                    <div className="flex gap-1.5">
+                      <Skeleton className="h-[34px] w-[50px]" />
+                      <Skeleton className="h-[34px] w-[50px]" />
+                      <Skeleton className="h-[34px] w-[50px]" />
+                    </div>
+                  </div>
 
-            return <CatalogItems key={el.id} el={el} isLastItem={isLastItem} />;
-          })} */}
+                  <div className="grid grid-cols-4 gap-x-[20px] gap-y-[52px] max-tablet:grid-cols-3 max-mobile:grid-cols-2 max-mobile:gap-y-[48px] max-mobile550:grid-cols-1">
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                    <Skeleton className="h-[360px] w-full" />
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            itemCategories.map((el, idx) => {
+              const isLastItem = idx === catalogItems.length - 1;
+              return (
+                <CatalogItems key={el.id} el={el} isLastItem={isLastItem} />
+              );
+            })
+          )}
         </div>
       </Container>
     </section>
