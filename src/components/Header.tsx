@@ -8,6 +8,7 @@ import { Phone } from "@/shared/icons/Phone";
 import { Time } from "@/shared/icons/Time";
 import { cn } from "@/shared/lib/utils";
 import { Container } from "@/shared/ui/container";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { useBasketStore } from "@/store/basket";
 import { useHeaderStore } from "@/store/header";
 import Link from "next/link";
@@ -19,7 +20,7 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const navbarRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
-  const { fixed, setFixed, navbar } = useHeaderStore();
+  const { fixed, setFixed, navbar, isLoading } = useHeaderStore();
 
   const router = useRouter();
 
@@ -198,23 +199,32 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
             <Container>
               <div className="flex w-full justify-between">
                 <div className="custom-scrollbar flex max-w-[850px] gap-[30px] overflow-x-auto max-mobile:overflow-x-scroll max-mobile:pb-[2px]">
-                  {navbar.map((item) => (
-                    <button
-                      key={item.id}
-                      // @ts-ignore
-                      ref={(el) => (navbarRefs.current[item.id] = el)}
-                      onClick={() => onClickNavbar(item.id)}
-                      className={cn(
-                        "relative cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-white",
-                        {
-                          "before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#FFAF10]":
-                            item.id === activeId,
-                        },
-                      )}
-                    >
-                      {item.title}
-                    </button>
-                  ))}
+                  {!isLoading &&
+                    navbar.map((item) => (
+                      <button
+                        key={item.id}
+                        // @ts-ignore
+                        ref={(el) => (navbarRefs.current[item.id] = el)}
+                        onClick={() => onClickNavbar(item.id)}
+                        className={cn(
+                          "relative cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-white",
+                          {
+                            "before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#FFAF10]":
+                              item.id === activeId,
+                          },
+                        )}
+                      >
+                        {item.title}
+                      </button>
+                    ))}
+
+                  {isLoading &&
+                    Array.from({ length: 10 }).map((_, index) => (
+                      <Skeleton
+                        key={index}
+                        className="h-[38px] w-[67px] bg-[#2e2c2c]"
+                      />
+                    ))}
 
                   <Link
                     href="/orders"

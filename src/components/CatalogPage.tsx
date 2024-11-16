@@ -4,7 +4,7 @@
 import { catalogItems } from "@/shared/const/catalogItems";
 import { Container } from "@/shared/ui/container";
 import { CatalogItems } from "./CatalogItems";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useStoreCatalog } from "@/store/catalog";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useHeaderStore } from "@/store/header";
@@ -20,24 +20,24 @@ const fetchCatalog = async () => {
 
 const CatalogPage = () => {
   const { setItemCategories, itemCategories } = useStoreCatalog();
-  const { setNavbar } = useHeaderStore();
-  const [loading, setLoading] = useState(true);
+
+  const { setNavbar, setIsLoading, isLoading } = useHeaderStore();
 
   useEffect(() => {
     fetchCatalog().then((data) => {
       setItemCategories(data.itemCategories);
-      setLoading(false);
+      setIsLoading(false);
       setNavbar(
         data.itemCategories.map((el: any) => ({ id: el.id, title: el.name })),
       );
     });
-  }, [setItemCategories, setNavbar]);
+  }, [setIsLoading, setItemCategories, setNavbar]);
 
   return (
     <section>
       <Container>
         <div className="flex flex-col justify-between gap-[52px] max-mobile:gap-[48px]">
-          {loading ? (
+          {isLoading ? (
             <>
               {[...Array(1)].map((_, idx) => (
                 <div key={idx} className="flex flex-col gap-[26px]">
