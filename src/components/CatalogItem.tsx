@@ -12,7 +12,6 @@ import Image from "next/image";
 const CatalogItem = ({ item }: { item: Item }) => {
   const { basket } = useBasketStore();
 
-  console.log(item);
   // const { addToBasket, basket, increaseCount, decreaseCount } =
   //   useBasketStore();
 
@@ -59,7 +58,7 @@ const CatalogItem = ({ item }: { item: Item }) => {
           )} */}
 
           <span className="text-[14px] font-[500] leading-[19px] text-[#696969]">
-            {item.itemSizes[0].prices[0].price}
+            {item.itemSizes[0].portionWeightGrams} г.
           </span>
         </div>
 

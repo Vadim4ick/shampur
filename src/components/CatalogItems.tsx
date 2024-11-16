@@ -18,8 +18,6 @@ const CatalogItems = ({
     setActiveCategory(category);
   };
 
-  console.log(Object.values(el.items));
-
   const uniqueNames = useMemo(() => {
     const labels = Object.values(el.items)
       .map((item) => item.labels?.[0]?.name) // Извлекаем имя первого лейбла
