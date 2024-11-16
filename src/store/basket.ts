@@ -43,7 +43,7 @@ export const useBasketStore = create<State>()(
       addToBasket: (item: ICatalogItem) =>
         set((state) => {
           const existingItem = state.basket.find(
-            (basketItem) => basketItem.item.id === item.id,
+            (basketItem) => basketItem.item.itemId === item.itemId,
           );
 
           let updatedBasket;
@@ -52,7 +52,7 @@ export const useBasketStore = create<State>()(
             const newCount = existingItem.count + 1;
 
             updatedBasket = state.basket.map((basketItem) =>
-              basketItem.item.id === item.id
+              basketItem.item.itemId === item.itemId
                 ? {
                     ...basketItem,
                     count: newCount,
@@ -78,7 +78,7 @@ export const useBasketStore = create<State>()(
       increaseCount: (item: ICatalogItem) =>
         set((state) => {
           const updatedBasket = state.basket.map((basketItem) => {
-            if (basketItem.item.id === item.id) {
+            if (basketItem.item.itemId === item.itemId) {
               const newCount = basketItem.count + 1;
 
               return {
@@ -102,7 +102,7 @@ export const useBasketStore = create<State>()(
       decreaseCount: (item: ICatalogItem) =>
         set((state) => {
           const existingItem = state.basket.find(
-            (basketItem) => basketItem.item.id === item.id,
+            (basketItem) => basketItem.item.itemId === item.itemId,
           );
 
           let updatedBasket;
@@ -111,7 +111,7 @@ export const useBasketStore = create<State>()(
             const newCount = existingItem.count - 1;
 
             updatedBasket = state.basket.map((basketItem) =>
-              basketItem.item.id === item.id
+              basketItem.item.itemId === item.itemId
                 ? {
                     ...basketItem,
                     count: newCount,
@@ -121,7 +121,7 @@ export const useBasketStore = create<State>()(
             );
           } else {
             updatedBasket = state.basket.filter(
-              (basketItem) => basketItem.item.id !== item.id,
+              (basketItem) => basketItem.item.itemId !== item.itemId,
             );
           }
 
@@ -136,7 +136,7 @@ export const useBasketStore = create<State>()(
       removeFromBasket: (item: ICatalogItem) =>
         set((state) => {
           const updatedBasket = state.basket.filter(
-            (basketItem) => basketItem.item.id !== item.id,
+            (basketItem) => basketItem.item.itemId !== item.itemId,
           );
 
           return {

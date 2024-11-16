@@ -1,5 +1,5 @@
 export interface ICatalogItem {
-  id: number;
+  itemId: string;
   img: string;
   title: string;
   category: string;
@@ -23,7 +23,7 @@ export const catalogItems: ICatalogItems[] = [
     categories: ["Свинина", "Курица", "Телятина", "Баранина"],
     items: [
       {
-        id: 0,
+        itemId: "0",
         img: "/img/eat/1@2x.png",
         title: "Шашлык из свиной вырезки",
         description: ["Свиная вырезка", "лук", "лаваш", "аджика"],
@@ -33,7 +33,7 @@ export const catalogItems: ICatalogItems[] = [
         sale: 20,
       },
       {
-        id: 1,
+        itemId: "1",
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Семечки",
@@ -42,7 +42,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 2,
+        itemId: "2",
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Яблочко",
@@ -51,54 +51,12 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 3,
+        itemId: "3",
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Яблочко",
         description: ["Баранье яблоко", "лаваш", "лук", "аджика"],
         price: 830,
-        weight: "200/50 г",
-      },
-      {
-        id: 4,
-        img: "/img/eat/1@2x.png",
-        category: "Телятина",
-        title: "Шашлык из корейки ягнёнка",
-        description: [
-          "Баранья корейка",
-          "баранье яблочко",
-          "лаваш",
-          "лук",
-          "аджика",
-        ],
-        price: 1100,
-        weight: "200/50 г",
-      },
-      {
-        id: 5,
-        img: "/img/eat/1@2x.png",
-        category: "Телятина",
-        title: "Шашлык из телятины",
-        description: ["Курица", "лук", "лаваш", "аджика"],
-        price: 450,
-        weight: "200/50 г",
-      },
-      {
-        id: 6,
-        img: "/img/eat/1@2x.png",
-        category: "Курица",
-        title: "Шашлык из куриных крыльев",
-        description: ["Куриные крылья", "лаваш", "лук", "аджика"],
-        price: 500,
-        weight: "200/50 г",
-      },
-      {
-        id: 7,
-        img: "/img/eat/1@2x.png",
-        category: "Курица",
-        title: "Шашлык из куриных крыльев",
-        description: ["Куриные крылья", "лаваш", "лук", "аджика"],
-        price: 500,
         weight: "200/50 г",
       },
     ],
@@ -109,7 +67,7 @@ export const catalogItems: ICatalogItems[] = [
     categories: ["Свинина", "Курица", "Телятина", "Баранина"],
     items: [
       {
-        id: 8,
+        itemId: "4",
         img: "/img/eat/1@2x.png",
         category: "Свинина",
         title: "Шашлык из свиной вырезки",
@@ -119,7 +77,7 @@ export const catalogItems: ICatalogItems[] = [
         sale: 20,
       },
       {
-        id: 9,
+        itemId: "5",
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Семечки",
@@ -128,7 +86,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 10,
+        itemId: "6",
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Яблочко",
@@ -137,54 +95,12 @@ export const catalogItems: ICatalogItems[] = [
         weight: "200/50 г",
       },
       {
-        id: 11,
+        itemId: "7",
         img: "/img/eat/1@2x.png",
         category: "Баранина",
         title: "Шашлык из баранины Яблочко",
         description: ["Баранье яблоко", "лаваш", "лук", "аджика"],
         price: 830,
-        weight: "200/50 г",
-      },
-      {
-        id: 12,
-        img: "/img/eat/1@2x.png",
-        category: "Телятина",
-        title: "Шашлык из корейки ягнёнка",
-        description: [
-          "Баранья корейка",
-          "баранье яблочко",
-          "лаваш",
-          "лук",
-          "аджика",
-        ],
-        price: 1100,
-        weight: "200/50 г",
-      },
-      {
-        id: 13,
-        img: "/img/eat/1@2x.png",
-        title: "Куриный шашлык",
-        category: "Курица",
-        description: ["Курица", "лук", "лаваш", "аджика"],
-        price: 450,
-        weight: "200/50 г",
-      },
-      {
-        id: 14,
-        img: "/img/eat/1@2x.png",
-        category: "Курица",
-        title: "Шашлык из куриных крыльев",
-        description: ["Куриные крылья", "лаваш", "лук", "аджика"],
-        price: 500,
-        weight: "200/50 г",
-      },
-      {
-        id: 15,
-        img: "/img/eat/1@2x.png",
-        category: "Курица",
-        title: "Шашлык из куриных крыльев",
-        description: ["Куриные крылья", "лаваш", "лук", "аджика"],
-        price: 500,
         weight: "200/50 г",
       },
     ],
@@ -196,7 +112,7 @@ export const catalogItems: ICatalogItems[] = [
     categories: ["Газ", "Б/газ", "Соки", "Пиво"],
     items: [
       {
-        id: 16,
+        itemId: "8",
         img: "/img/eat/1@2x.png",
         category: "Газ",
         title: "Кока-кола",
@@ -204,7 +120,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "500 мл",
       },
       {
-        id: 17,
+        itemId: "9",
         category: "Пиво",
         img: "/img/eat/1@2x.png",
         title: "Жигулевское",
@@ -212,7 +128,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "500 мл",
       },
       {
-        id: 18,
+        itemId: "10",
         category: "Б/газ",
         img: "/img/eat/1@2x.png",
         title: "Аква",
@@ -220,7 +136,7 @@ export const catalogItems: ICatalogItems[] = [
         weight: "500 мл",
       },
       {
-        id: 19,
+        itemId: "11",
         category: "Соки",
         img: "/img/eat/1@2x.png",
         title: "Добрый",

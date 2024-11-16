@@ -17,7 +17,7 @@ const Basket = () => {
           const isLastItem = idx === basket.length - 1;
 
           return (
-            <BasketItem key={el.item.id} el={el} isLastItem={isLastItem} />
+            <BasketItem key={el.item.itemId} el={el} isLastItem={isLastItem} />
           );
         })}
 
