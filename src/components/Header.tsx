@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
-import { navbar } from "@/shared/const/navbar";
 import { Grill } from "@/shared/icons/Grill";
 import { HeaderLogo } from "@/shared/icons/HeaderLogo";
 import { Location } from "@/shared/icons/Location";
@@ -15,14 +15,19 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
-  const [activeId, setActiveId] = useState(0);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const { fixed, setFixed } = useHeaderStore();
+  const navbarRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const { fixed, setFixed, navbar } = useHeaderStore();
 
   const router = useRouter();
 
   const { totalCount } = useBasketStore();
+
+  useEffect(() => {
+    setActiveId(navbar[0]?.id);
+  }, [navbar]);
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -34,23 +39,12 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
     }
   }, [setFixed]);
 
-  const handleResize = useCallback(() => {
-    if (observerRef.current) {
-      const sections = document.querySelectorAll("[data-catalog]");
-      sections.forEach((section) => {
-        if (observerRef.current) {
-          observerRef.current.observe(section);
-        }
-      });
-    }
-  }, []);
-
-  const onClickNavbar = useCallback((id: number) => {
+  const onClickNavbar = useCallback((id: string) => {
     const section = document.querySelector(`[data-catalog="${id}"]`);
     if (!section) return;
 
     const offsetTop = section.getBoundingClientRect().top + window.scrollY;
-    const scrollToPosition = offsetTop - 140; // Adjust offset
+    const scrollToPosition = offsetTop - 140;
 
     window.scrollTo({
       top: scrollToPosition,
@@ -61,55 +55,52 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
   useEffect(() => {
     if (!bottomLinks) return;
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(Number(entry.target.getAttribute("data-catalog")));
-          }
-        });
-      },
-      { threshold: 0.8 },
-    );
-
     const sections = document.querySelectorAll("[data-catalog]");
-    sections.forEach((section) => observerRef.current!.observe(section));
 
-    return () => {
-      sections.forEach((section) => observerRef.current!.unobserve(section));
-    };
-  }, []);
+    if (sections.length > 0) {
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute("data-catalog");
+              if (id) {
+                setActiveId(id);
+              }
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: "0px 0px -70% 0px",
+          threshold: 0,
+        },
+      );
 
-  useEffect(() => {
-    if (!bottomLinks) return;
+      sections.forEach((section) => {
+        observerRef.current?.observe(section);
+      });
+    }
 
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
     };
-  }, [handleResize, handleScroll]);
+  }, [bottomLinks, handleScroll, navbar]);
 
   useEffect(() => {
-    if (bottomLinks) {
-      // Установите активный id при монтировании компонента
-      const sections = document.querySelectorAll("[data-catalog]");
-      const last = sections[sections.length - 1];
-
-      if (!last) return;
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-      const sectionTop = last.getBoundingClientRect().top + scrollTop;
-      const sectionBottom = sectionTop + last.clientHeight;
-
-      // // Проверяем, находимся ли мы в пределах последней секции
-      if (scrollTop >= sectionTop && scrollTop > sectionBottom) {
-        setActiveId(Number(last.getAttribute("data-catalog")));
-      }
+    if (activeId && navbarRefs.current[activeId]) {
+      navbarRefs.current[activeId]?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
     }
-  }, [bottomLinks]);
+  }, [activeId]);
 
   return (
     <>
@@ -206,15 +197,17 @@ const Header = ({ bottomLinks = true }: { bottomLinks?: boolean }) => {
           <div className="flex items-center bg-[#363636]">
             <Container>
               <div className="flex w-full justify-between">
-                <div className="custom-scrollbar flex gap-[30px] overflow-y-hidden max-mobile:overflow-x-scroll max-mobile:pb-[2px]">
+                <div className="custom-scrollbar flex max-w-[850px] gap-[30px] overflow-x-auto max-mobile:overflow-x-scroll max-mobile:pb-[2px]">
                   {navbar.map((item) => (
                     <button
                       key={item.id}
+                      // @ts-ignore
+                      ref={(el) => (navbarRefs.current[item.id] = el)}
                       onClick={() => onClickNavbar(item.id)}
                       className={cn(
-                        "cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-white",
+                        "relative cursor-pointer whitespace-nowrap text-[16px] font-[700] leading-[22px] text-white",
                         {
-                          "relative before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#FFAF10]":
+                          "before:absolute before:bottom-[-0px] before:left-[50%] before:h-[2px] before:w-[26px] before:translate-x-[-50%] before:rounded-t-[4px] before:bg-[#FFAF10]":
                             item.id === activeId,
                         },
                       )}

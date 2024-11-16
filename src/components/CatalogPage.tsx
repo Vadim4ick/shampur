@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { catalogItems } from "@/shared/const/catalogItems";
@@ -6,6 +7,7 @@ import { CatalogItems } from "./CatalogItems";
 import { useEffect, useState } from "react";
 import { useStoreCatalog } from "@/store/catalog";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { useHeaderStore } from "@/store/header";
 
 const fetchCatalog = async () => {
   const response = await fetch("/api/getMenuId", {
@@ -18,14 +20,18 @@ const fetchCatalog = async () => {
 
 const CatalogPage = () => {
   const { setItemCategories, itemCategories } = useStoreCatalog();
+  const { setNavbar } = useHeaderStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchCatalog().then((data) => {
       setItemCategories(data.itemCategories);
       setLoading(false);
+      setNavbar(
+        data.itemCategories.map((el: any) => ({ id: el.id, title: el.name })),
+      );
     });
-  }, [setItemCategories]);
+  }, [setItemCategories, setNavbar]);
 
   return (
     <section>
