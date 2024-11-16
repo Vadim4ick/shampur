@@ -98,7 +98,10 @@ const BasketItem = ({
           <div className="relative h-[79px] w-full max-w-[121px] rounded max-mobile:max-w-[112px]">
             <Image
               className="h-full w-full rounded-[6px] object-cover"
-              src={el.item.img}
+              src={
+                el.item.itemSizes[0].buttonImageCroppedUrl?.["475x250-webp"]
+                  .url as string
+              }
               fill
               alt=""
             />
@@ -106,22 +109,23 @@ const BasketItem = ({
 
           <div className="flex w-full max-w-[310px] flex-col gap-[4px]">
             <span className="line-clamp-2 text-[14px] font-[700] leading-[19px] text-[#363636]">
-              {el.item.title}
+              {el.item.name}
             </span>
 
-            {el.item.description && (
+            {/* {el.item.description && (
               <p className="line-clamp-2 text-[12px] font-[500] leading-[16px] text-[#696969]">
                 {el.item.description.join(", ")}
               </p>
-            )}
+            )} */}
 
             <span className="text-[12px] font-[500] leading-[16px] text-[#696969]">
-              {el.item.weight}
+              {el.item.itemSizes[0].portionWeightGrams} г.
             </span>
           </div>
 
           {!isMobile && (
-            <BasketItemPrices totalPrice={el.totalPrice} sale={el.item.sale} />
+            <BasketItemPrices totalPrice={el.totalPrice} sale={undefined} />
+            // <BasketItemPrices totalPrice={el.totalPrice} sale={el.item.sale} />
           )}
         </div>
 
@@ -140,7 +144,8 @@ const BasketItem = ({
         )}
       >
         {isMobile && (
-          <BasketItemPrices totalPrice={el.totalPrice} sale={el.item.sale} />
+          <BasketItemPrices totalPrice={el.totalPrice} sale={undefined} />
+          // <BasketItemPrices totalPrice={el.totalPrice} sale={el.item.sale} />
         )}
 
         <div className="flex gap-[9px]">

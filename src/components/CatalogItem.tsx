@@ -1,6 +1,5 @@
 "use client";
 
-// import { ICatalogItem } from "@/shared/const/catalogItems";
 import { Minuse } from "@/shared/icons/Minuse";
 import { Pluse } from "@/shared/icons/Pluse";
 import { formatPrice } from "@/shared/lib/utils";
@@ -10,10 +9,8 @@ import { Item } from "@/store/catalog";
 import Image from "next/image";
 
 const CatalogItem = ({ item }: { item: Item }) => {
-  const { basket } = useBasketStore();
-
-  // const { addToBasket, basket, increaseCount, decreaseCount } =
-  //   useBasketStore();
+  const { addToBasket, basket, increaseCount, decreaseCount } =
+    useBasketStore();
 
   const findItemToBasket = basket.find(
     (basketItem) => basketItem.item.itemId === item.itemId,
@@ -26,9 +23,8 @@ const CatalogItem = ({ item }: { item: Item }) => {
           <Image
             // src={"/1.png"}
             src={
-              item.itemSizes[0].buttonImageCroppedUrl?.["475x250-webp"].url as
-                | string
-                | "/1.png"
+              item.itemSizes[0].buttonImageCroppedUrl?.["475x250-webp"]
+                .url as string
             }
             alt="img"
             fill
@@ -78,7 +74,7 @@ const CatalogItem = ({ item }: { item: Item }) => {
 
           {!findItemToBasket && (
             <Button
-              // onClick={() => addToBasket(item)}
+              onClick={() => addToBasket(item)}
               className="h-[44px] max-w-[140px] max-mobile:max-w-[170px]"
             >
               Добавить
@@ -88,7 +84,7 @@ const CatalogItem = ({ item }: { item: Item }) => {
           {findItemToBasket && (
             <div className="flex items-center gap-[12px]">
               <button
-                // onClick={() => decreaseCount(item)}
+                onClick={() => decreaseCount(item)}
                 className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#C7C7C7]"
               >
                 <Minuse />
@@ -99,7 +95,7 @@ const CatalogItem = ({ item }: { item: Item }) => {
               </span>
 
               <button
-                // onClick={() => increaseCount(item)}
+                onClick={() => increaseCount(item)}
                 className="flex size-[36px] items-center justify-center rounded-[10px] bg-[#E1E1E1] transition-colors [@media(any-hover:hover){&:hover}]:bg-[#C7C7C7]"
               >
                 <Pluse />

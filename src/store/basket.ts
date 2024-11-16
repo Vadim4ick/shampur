@@ -1,10 +1,10 @@
-import { ICatalogItem } from "@/shared/const/catalogItems";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { Item } from "./catalog";
 
 export interface BasketItem {
   count: number;
-  item: ICatalogItem;
+  item: Item;
   totalPrice: number;
 }
 
@@ -15,10 +15,10 @@ interface State {
 
   totalPrice: number;
 
-  addToBasket: (item: ICatalogItem) => void;
-  increaseCount: (item: ICatalogItem) => void;
-  decreaseCount: (item: ICatalogItem) => void;
-  removeFromBasket: (item: ICatalogItem) => void;
+  addToBasket: (item: Item) => void;
+  increaseCount: (item: Item) => void;
+  decreaseCount: (item: Item) => void;
+  removeFromBasket: (item: Item) => void;
 
   setDelivery: (val: boolean) => void;
 }
@@ -40,7 +40,7 @@ export const useBasketStore = create<State>()(
       setDelivery: (val: boolean) => set({ isDelivery: val }),
 
       // Добавление товара в корзину
-      addToBasket: (item: ICatalogItem) =>
+      addToBasket: (item: Item) =>
         set((state) => {
           const existingItem = state.basket.find(
             (basketItem) => basketItem.item.itemId === item.itemId,
@@ -56,14 +56,14 @@ export const useBasketStore = create<State>()(
                 ? {
                     ...basketItem,
                     count: newCount,
-                    totalPrice: item.price * newCount,
+                    totalPrice: item.itemSizes[0].prices[0].price * newCount,
                   }
                 : basketItem,
             );
           } else {
             updatedBasket = [
               ...state.basket,
-              { item, count: 1, totalPrice: item.price },
+              { item, count: 1, totalPrice: item.itemSizes[0].prices[0].price },
             ];
           }
 
@@ -75,7 +75,7 @@ export const useBasketStore = create<State>()(
         }),
 
       // Увеличение количества товара в корзине
-      increaseCount: (item: ICatalogItem) =>
+      increaseCount: (item: Item) =>
         set((state) => {
           const updatedBasket = state.basket.map((basketItem) => {
             if (basketItem.item.itemId === item.itemId) {
@@ -84,7 +84,7 @@ export const useBasketStore = create<State>()(
               return {
                 ...basketItem,
                 count: newCount,
-                totalPrice: item.price * newCount,
+                totalPrice: item.itemSizes[0].prices[0].price * newCount,
               };
             } else {
               return basketItem;
@@ -99,7 +99,7 @@ export const useBasketStore = create<State>()(
         }),
 
       // Уменьшение количества товара в корзине
-      decreaseCount: (item: ICatalogItem) =>
+      decreaseCount: (item: Item) =>
         set((state) => {
           const existingItem = state.basket.find(
             (basketItem) => basketItem.item.itemId === item.itemId,
@@ -115,7 +115,7 @@ export const useBasketStore = create<State>()(
                 ? {
                     ...basketItem,
                     count: newCount,
-                    totalPrice: item.price * newCount,
+                    totalPrice: item.itemSizes[0].prices[0].price * newCount,
                   }
                 : basketItem,
             );
@@ -133,7 +133,7 @@ export const useBasketStore = create<State>()(
         }),
 
       // Удаление товара из корзины
-      removeFromBasket: (item: ICatalogItem) =>
+      removeFromBasket: (item: Item) =>
         set((state) => {
           const updatedBasket = state.basket.filter(
             (basketItem) => basketItem.item.itemId !== item.itemId,
