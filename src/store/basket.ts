@@ -19,6 +19,7 @@ interface State {
   increaseCount: (item: Item) => void;
   decreaseCount: (item: Item) => void;
   removeFromBasket: (item: Item) => void;
+  removeAllFromBasket: () => void;
 
   setDelivery: (val: boolean) => void;
 }
@@ -145,6 +146,9 @@ export const useBasketStore = create<State>()(
             totalPrice: calculateTotalPrice(updatedBasket),
           };
         }),
+
+      removeAllFromBasket: () =>
+        set({ basket: [], totalCount: 0, totalPrice: 0 }),
     }),
     {
       name: "basket",

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
 import { Basket } from "@/components/Basket/Basket";
@@ -9,9 +10,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Container } from "@/shared/ui/container";
 import { TypeOf, string, z } from "zod";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useBasketStore } from "@/store/basket";
+import axios from "axios";
 
 const contactFormSchema = z.object({
   email: string().email({
@@ -45,8 +47,40 @@ const createSchemaWithDelivery = (isDelivery: boolean) => {
   );
 };
 
+interface OrderFormValues {
+  email: string;
+  name: string;
+  phone: string;
+  address: string;
+  comment: string;
+}
+
 const OrdersPage = () => {
-  const { totalPrice, isDelivery, setDelivery } = useBasketStore();
+  const { totalPrice, isDelivery, setDelivery, basket, removeAllFromBasket } =
+    useBasketStore();
+
+  const handleSubmit = async (
+    values: OrderFormValues,
+    { setSubmitting, resetForm }: FormikHelpers<OrderFormValues>,
+  ) => {
+    try {
+      const response = await axios.post("/api/sendOrder", {
+        ...values,
+        totalPrice,
+        isDelivery,
+        basket,
+      });
+
+      alert(response.data.message);
+      resetForm();
+      removeAllFromBasket();
+    } catch (error) {
+      console.error("Ошибка при отправке заказа:", error);
+      alert("Произошла ошибка при отправке заказа.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <main className="flex-grow bg-[#f5f5f5] pb-[208px] max-tablet:pb-[108px] max-mobile:pb-[57px]">
@@ -65,11 +99,8 @@ const OrdersPage = () => {
                 address: "",
                 comment: "",
               }}
-              onSubmit={(values) => {
-                console.log("Form is submitted", values);
-                console.log("totalPrice", totalPrice);
-                console.log("isDelivery", isDelivery);
-              }}
+              // @ts-ignore
+              onSubmit={handleSubmit}
               validationSchema={toFormikValidationSchema(
                 createSchemaWithDelivery(isDelivery),
               )}
