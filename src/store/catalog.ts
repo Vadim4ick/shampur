@@ -10,9 +10,52 @@ export interface Nutrition {
   sugar: number | null;
 }
 
+export interface Restriction {
+  minQuantity: number;
+  maxQuantity: number;
+  freeQuantity: number;
+  byDefault: number;
+  hideIfDefaultQuantity: boolean;
+}
+
 export interface Price {
   organizationId: string;
   price: number;
+}
+
+export interface ModifierItem {
+  sku: string;
+  name: string;
+  description: string;
+  restrictions: Restriction;
+  allergenGroups: unknown[]; // Укажите тип, если известен
+  nutritionPerHundredGrams: Nutrition;
+  portionWeightGrams: number;
+  tags: string[];
+  labels: string[];
+  itemId: string;
+  isHidden: boolean;
+  prices: Price[];
+  position: number;
+  independentQuantity: boolean;
+  productCategoryId: string;
+  customerTagGroups: unknown[]; // Укажите тип, если известен
+  paymentSubject: string | null;
+  outerEanCode: string | null;
+  measureUnitType: string;
+  buttonImageUrl: string | null;
+}
+
+export interface ItemModifierGroup {
+  name: string;
+  description: string;
+  restrictions: Restriction;
+  items: ModifierItem[];
+  canBeDivided: boolean;
+  itemGroupId: string;
+  isHidden: boolean;
+  childModifiersHaveMinMaxRestrictions: boolean;
+  sku: string;
 }
 
 export interface ItemSize {
@@ -21,7 +64,7 @@ export interface ItemSize {
   sizeName: string;
   isDefault: boolean;
   portionWeightGrams: number;
-  itemModifierGroups: unknown[]; // Типизируйте, если известна структура
+  itemModifierGroups: ItemModifierGroup[];
   sizeId: string | null;
   nutritionPerHundredGrams: Nutrition;
   prices: Price[];

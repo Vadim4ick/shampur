@@ -60,34 +60,34 @@ ${basket.map((item) => `  • ${item.item.name} x${item.count}`).join("\n")}
     `;
 
     // Отправляем сообщение через Telegram API
-    const telegramResponse = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown",
-        }),
-      },
-    );
+    // const telegramResponse = await fetch(
+    //   `https://api.telegram.org/bot${token}/sendMessage`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       chat_id: chatId,
+    //       text: message,
+    //       parse_mode: "Markdown",
+    //     }),
+    //   },
+    // );
 
-    const telegramData = await telegramResponse.json();
+    // const telegramData = await telegramResponse.json();
 
-    if (!telegramData.ok) {
-      console.error("Ошибка при отправке сообщения в Telegram:", telegramData);
-      return NextResponse.json(
-        { message: "Failed to send message to Telegram" },
-        { status: 500 },
-      );
-    }
+    // if (!telegramData.ok) {
+    //   console.error("Ошибка при отправке сообщения в Telegram:", telegramData);
+    //   return NextResponse.json(
+    //     { message: "Failed to send message to Telegram" },
+    //     { status: 500 },
+    //   );
+    // }
 
     // Возвращаем успешный ответ
     return NextResponse.json(
-      { message: "Заказ успешно отправлен!" },
+      { message: "Заказ успешно отправлен!", data: message },
       { status: 200 },
     );
   } catch (error) {
