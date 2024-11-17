@@ -9,6 +9,7 @@ export default function Home() {
   return (
     <main className="bg-[#FAFAFA]">
       <Banner />
+
       <CatalogPage />
 
       {/* Доставка и оплата */}
